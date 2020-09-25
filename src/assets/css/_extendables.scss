@@ -1,0 +1,92 @@
+//
+// Flex parent element definitions
+//
+%flex-row {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+%flex-column {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+%flex-h-start {
+    @extend %flex-row;
+    justify-content: start;
+}
+%flex-h-center {
+    @extend %flex-row;
+    justify-content: center;
+}
+%flex-h-end {
+    @extend %flex-row;
+    justify-content: end;
+}
+%flex-h-evenly {
+    @extend %flex-row;
+    justify-content: space-evenly;
+}
+%flex-h-between {
+    @extend %flex-row;
+    justify-content: space-between;
+}
+
+%flex-v-start {
+    @extend %flex-column;
+    justify-content: start;
+}
+%flex-v-center {
+    @extend %flex-column;
+    justify-content: center;
+}
+%flex-v-end {
+    @extend %flex-column;
+    justify-content: end;
+}
+%flex-v-evenly {
+    @extend %flex-column;
+    justify-content: space-evenly;
+}
+%flex-v-between {
+    @extend %flex-column;
+    justify-content: space-between;
+}
+
+
+//
+// Positioning elements
+//
+%fullscreen-absolute {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+%bkg-img-full-centered {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+%block-center {
+    display: block;
+    margin: 0 auto;
+}
+
+//
+// Shadow effects
+//
+%bs-spread-shadow {
+    box-shadow: 0 0 16px 1px rgba(0, 0, 0, 0.06);
+}
+
+//
+// shapes effects
+//
+%custom-card-corners {
+    border-radius: 4px
+}

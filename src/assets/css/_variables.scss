@@ -1,0 +1,30 @@
+//
+// Break points configs
+//
+$breakpoints: (
+    'small': 768px,
+    'medium': 1165px,
+    'large': 1366px,
+) !default;
+
+
+//
+// Colors
+//
+$primaryColorLight: #3f8de6;
+$primaryColorNormal: #1260a1;
+$primaryColor: #0c487a;
+$secondaryColor: #6d6d6d;
+$accentColor: #b59c5d;
+$textSemiDark: #484848;
+$textDark: #3b3b3b;
+$lineLight: #00000016;
+
+$success: #41db41;
+$error: #c52222;
+
+
+//
+// Font base, based on material
+//
+$f-base: 16;

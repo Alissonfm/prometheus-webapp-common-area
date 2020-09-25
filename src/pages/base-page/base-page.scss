@@ -1,0 +1,19 @@
+//@use '../../styles/theme';
+@import '../../assets/css/extendables';
+@import '../../assets/css/theme';
+
+
+.page {
+  @extend %fullscreen-absolute;
+  @extend %flex-v-start;
+  flex-wrap: nowrap;
+
+  .content {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: $background;
+  }
+}
