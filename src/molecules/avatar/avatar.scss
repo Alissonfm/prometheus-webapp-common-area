@@ -1,0 +1,50 @@
+@import '../../assets/css/theme';
+@import '../../assets/css/extendables';
+
+.avatar {
+  width: 100%;
+  @extend %flex-h-between;
+  flex-wrap: nowrap;
+
+  .profile {
+    @extend %flex-h-start;
+    flex-wrap: nowrap;
+    display: inline-flex;
+
+    .image {
+      margin-right: 10px;
+    }
+
+    .about {
+      @extend %flex-v-between;
+      align-items: flex-start;
+      width: 100%;
+      
+      * {
+        margin: initial;
+        padding: initial;
+      }
+    }
+  }
+
+  .action {
+    display: inline-block;
+  }
+
+  &.light {
+    * {
+      color: white;
+    }
+
+    .profile{ .image { border: 4px solid white; } }
+  }
+
+  &.dark {
+    * {
+      color: $content;
+    }
+
+    .profile{ .image { border: 4px solid $background; } }
+  }
+
+}
