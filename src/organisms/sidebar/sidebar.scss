@@ -1,22 +1,11 @@
 @import '../../assets/css/theme';
 @import '../../assets/css/extendables';
 
-.wrapper {
-  width: 400px;
+.sidebar-content {
   position: relative;
   @extend %flex-v-start;
-
-  .header {
-    @extend %flex-h-between;
-    background-color: $primaryColor;
-    height: 100px;
-    width: 100%;
-    position: relative;
-    padding: 0 15px;
-  }
-
-  .content {
-    padding: 15px;
-  }
-
+  height: 100%;
+  width: 400px;
+  padding: 0 15px 15px 15px;
+  overflow-y: auto;
 }

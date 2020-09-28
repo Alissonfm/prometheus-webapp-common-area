@@ -13,12 +13,41 @@
 
     .image {
       margin-right: 10px;
+      
+      &.big {
+        height: 70px;
+        width: 70px;
+      }
+
     }
 
     .about {
       @extend %flex-v-between;
       align-items: flex-start;
       width: 100%;
+      
+      h4 {
+        font-size: 14px;
+      }
+
+      span {
+        font-size: 12px;
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      &.big {
+
+        h4 {
+          font-size: 18px;
+        }
+
+        span {
+          font-size: 16px;
+        }
+      }
       
       * {
         margin: initial;

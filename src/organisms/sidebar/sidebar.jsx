@@ -1,26 +1,15 @@
+import _map from 'lodash/map';
 import * as React from 'react';
-import { Avatar } from '../../molecules';
+import { Widget } from '../../molecules';
+import WDG from './mock';
 import './sidebar.scss';
 
 
-const Sidebar = ({ toggle }) => {
-
-  const AvatarProps = {
-    theme: 'light',
-    name: 'Augusto Lima',
-    role: 'Professor e Coordenador',
-    imageSrc: '../../assets/img/user-test.jpg',
-    // action: <IconButton onClick={toggle}><FormatAlignRightIcon /></IconButton>
-  };
+const Sidebar = (props) => {
 
   return (
-    <div className="wrapper">
-      <div className="header">
-        <Avatar {...AvatarProps} />
-      </div>
-      <div className="content">
-        Sidebar
-      </div>
+    <div className="sidebar-content">
+      {_map(WDG, (wid) => <Widget {...wid} />)}
     </div>
   );
 }

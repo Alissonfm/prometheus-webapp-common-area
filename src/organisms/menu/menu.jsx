@@ -3,18 +3,18 @@ import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight';
 import _map from 'lodash/map';
 import * as React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { Avatar } from '../../molecules';
+import { Avatar, SubjectSelector } from '../../molecules';
 import './menu.scss';
 
 const MENU_TREE = [
-  { to: '/dashboard', counter: 0, label: <img src="../../assets/img/logo-icon-white.png" alt="prometheus-logo" /> },
+  { to: '/', counter: 0, matchExact: true, label: <img src="../../assets/img/logo-icon-white.png" alt="prometheus-logo" /> },
   { to: '/profile', counter: 0, label: 'Perfil' },
   { to: '/requests', counter: 4, label: 'Solicitações' },
   { to: '/activities', counter: 0, label: 'Atividades' },
 ];
 
-const MenuLink = ({ to, counter, label }) => {
-  const activeLink = useRouteMatch({ path: to });
+const MenuLink = ({ to, matchExact, counter, label }) => {
+  const activeLink = useRouteMatch({ path: to, exact: matchExact });
   const linkClasses = `menu-link ${activeLink ? 'activePage' : ''}`;
   const content = counter ? <Badge className='badge' badgeContent={counter}>{label}</Badge> : label;
 
@@ -29,8 +29,9 @@ const Menu = ({ sidebarToggle }) => {
     className: 'menu--avatar',
     theme: 'light',
     name: 'Augusto Lima',
-    role: 'Professor e Coordenador',
+    description: 'Professor e Coordenador',
     imageSrc: '../../assets/img/user-test.jpg',
+    size: 'big',
     action: <IconButton onClick={sidebarToggle}><FormatAlignRightIcon /></IconButton>
   };
 
@@ -39,8 +40,10 @@ const Menu = ({ sidebarToggle }) => {
       <MenuList className="nav-list">
         {_map(MENU_TREE, (menuItemData) => <MenuLink {...menuItemData} />)}
       </MenuList>
-
-      <Avatar {...avatarProps} />
+      <div className="right-wrapper">
+        <SubjectSelector />
+        <Avatar {...avatarProps} />
+      </div>
     </div>
   );
 }

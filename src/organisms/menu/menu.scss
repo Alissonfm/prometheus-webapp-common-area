@@ -56,7 +56,18 @@
     }
   }
 
-  .menu--avatar {
-    max-width: 400px;
+  .right-wrapper {
+    @extend %flex-h-between;
+    flex-wrap: nowrap;
+    height: 100%;
+
+    > * {
+      height: 100%;
+    }
+
+    .menu--avatar {
+      max-width: 400px;
+      padding: 0 15px;
+    }
   }
 }

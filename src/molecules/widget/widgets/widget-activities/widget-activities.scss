@@ -1,0 +1,45 @@
+@import '../../../../assets/css/theme';
+@import '../../../../assets/css/extendables';
+
+.widget-activities-wrapper {
+  @extend %flex-v-start;
+  flex-wrap: nowrap;
+  position: relative;
+  width: 100%;
+
+  .activity {
+    display: block;
+    width: 100%;
+    position: relative;
+    padding: 10px 0;
+
+    .activity-messages {
+      @extend %flex-v-start;
+      flex-wrap: nowrap;
+      padding: 10px 10px 0 10px;
+
+      .message {
+        max-width: 80%;
+        display: block;
+        position: relative;
+        padding: 7.5px;
+        color: $content;
+        background: $background;
+        border-left: 3px solid $secondaryColor;
+        border-radius: 6px;
+        font-size: 12px;
+        margin-bottom: 10px;
+
+        &.mine {
+          border-left: none;
+          border-right: 3px solid $accentColor;
+          align-self: flex-end;
+        }
+
+        &::last-child {
+          margin-bottom: initial;
+        }
+      }
+    }
+  }
+}

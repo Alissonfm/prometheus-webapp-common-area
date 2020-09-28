@@ -1,0 +1,29 @@
+{
+  "content": [
+    {
+      "id": 1,
+      "name": "Matemática",
+      "icon": "teste"
+    },
+    {
+      "id": 2,
+      "name": "Português",
+      "icon": "teste"
+    },
+    {
+      "id": 3,
+      "name": "História",
+      "icon": "teste"
+    },
+    {
+      "id": 4,
+      "name": "Ciências",
+      "icon": "teste"
+    },
+    {
+      "id": 5,
+      "name": "Geografia",
+      "icon": "teste"
+    }
+  ]
+}

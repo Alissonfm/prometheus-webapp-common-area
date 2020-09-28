@@ -4,10 +4,6 @@ import { Route, Switch } from 'react-router-dom';
 
 const ROUTES = [
   {
-    path: '/dashboard',
-    component: () => (<div>Dashboard</div>),
-  },
-  {
     path: '/student',
     component: () => (<div>Student</div>),
   },
@@ -35,6 +31,7 @@ const buildRouterTree = (routes) => {
 
 const RouterTree = () => (
   <Switch>
+    <Route exact path="/"><div>Dashboard</div></Route>
     {buildRouterTree(ROUTES)}
   </Switch>
 );
