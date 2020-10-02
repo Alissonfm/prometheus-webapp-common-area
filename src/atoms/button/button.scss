@@ -1,0 +1,29 @@
+@import '../../assets/css/theme';
+
+
+.custom-button {
+  padding: 12.5px 25px !important;
+  font-size: 14px !important;
+  text-transform: none !important;
+  font-weight: 700;
+
+  .MuiButton-label {
+    font-weight: 600;
+  }
+
+  &.bg--primary {
+    background-color: $primaryColor;
+    box-shadow: 0px 0px 20px -6px $primaryColor;
+
+    .MuiButton-label {
+      color: white;
+      font-weight: 700;
+    }
+
+    &:hover {
+      background-color: $primaryColor;
+      opacity: 0.75;
+    }
+  }
+
+}

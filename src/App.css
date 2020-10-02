@@ -26,6 +26,10 @@
   color: rgb(112, 76, 182);
 }
 
+h1, h2, h3, h4, h5, h6 {
+  margin: initial;
+}
+
 @keyframes App-logo-float {
   0% {
     transform: translateY(0);

@@ -1,38 +1,39 @@
 import _map from 'lodash/map';
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { Profile } from '../pages';
 
 const ROUTES = [
   {
     path: '/student',
-    component: () => (<div>Student</div>),
+    Component: () => (<div>Student</div>),
   },
   {
     path: '/educator',
-    component: () => (<div>Educator</div>),
+    Component: () => (<div>Educator</div>),
   },
   {
     path: '/profile',
-    component: () => (<div>Perfil</div>),
+    Component: Profile,
   },
   {
     path: '/requests',
-    component: () => (<div>Solicitações</div>),
+    Component: () => (<div>Solicitações</div>),
   },
   {
     path: '/activities',
-    component: () => (<div>Atividades</div>),
+    Component: () => (<div>Atividades</div>),
   },
 ];
 
-const buildRouterTree = (routes) => {
-  return _map(routes, ({ path, component }) => <Route key={`${Math.random()}-${path}`} path={path}>{component}</Route>);
+const buildRouterTree = (routes, props) => {
+  return _map(routes, ({ path, Component }) => <Route key={`${Math.random()}-${path}`} path={path}><Component {...props} /></Route>);
 }
 
-const RouterTree = () => (
+const RouterTree = (props) => (
   <Switch>
     <Route exact path="/"><div>Dashboard</div></Route>
-    {buildRouterTree(ROUTES)}
+    {buildRouterTree(ROUTES, props)}
   </Switch>
 );
 

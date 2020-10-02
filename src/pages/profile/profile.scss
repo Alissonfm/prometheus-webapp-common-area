@@ -1,0 +1,106 @@
+@import '../../assets/css/theme'; 
+@import '../../assets/css/extendables'; 
+
+.profile-page {
+  @extend %flex-v-start;
+  flex-wrap: nowrap;
+  position: relative;
+  width: 100%;
+  padding-top: 50px;
+
+  div, span {
+    font-size: 14px;
+    color: $content;
+  }
+
+  h2, h3 {
+    color: $fontDark;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  h4 {
+    font-size: 14px;
+    color: $title;
+    font-weight: 500;
+  }
+
+  .icon--primary {
+    color: $primaryColor;
+  }
+
+  .icon--secondary {
+    color: $secondaryColor;
+  }
+
+  .header {
+    @extend %flex-h-between;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    margin-bottom: -55px;
+    padding-left: 25px;
+
+    .header-avatar {
+      width: 135px;
+      height: 135px;
+      position: relative;
+    }
+
+    .header-wrapper {
+      @extend %flex-v-center;
+      flex-wrap: nowrap;
+      position: relative;
+      height: 100%;
+      width: 100%;
+      padding-left: 15px;
+
+      .header-top {
+        @extend %flex-h-between;
+        width: 100%;
+        padding: 15px 0;
+
+        .tip {
+          height: 100%;
+          display: inline-block;
+
+          svg {
+            vertical-align: middle;
+            line-height: inherit;
+          }
+
+          h4 {
+            padding-bottom: 7.5px;
+          }
+        } 
+
+      }
+
+      .header-bottom {
+        display: block;
+        width: 100%;
+        position: relative;
+        padding: 15px;
+      }
+    }
+  }
+
+  .profile-wrapper {
+    padding: 100px 20px 20px 20px;
+
+    .about {
+      h3 {
+        line-height: 1.5rem;
+        padding-bottom: 15px;
+
+        svg {
+          vertical-align: middle;
+        }
+
+
+      }
+    }
+  }
+}

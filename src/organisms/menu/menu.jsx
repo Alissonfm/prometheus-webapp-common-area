@@ -7,7 +7,7 @@ import { Avatar, SubjectSelector } from '../../molecules';
 import './menu.scss';
 
 const MENU_TREE = [
-  { to: '/', counter: 0, matchExact: true, label: <img src="../../assets/img/logo-icon-white.png" alt="prometheus-logo" /> },
+  { to: '/', counter: 0, matchExact: true, label: <img style={{ maxWidth: '40px' }} src="../../assets/img/logo-icon-white.png" alt="prometheus-logo" /> },
   { to: '/profile', counter: 0, label: 'Perfil' },
   { to: '/requests', counter: 4, label: 'Solicitações' },
   { to: '/activities', counter: 0, label: 'Atividades' },

@@ -24,7 +24,7 @@ const BasePage = (props) => {
 
       <div className='content'>
 
-        <Container className={dynamicClasses.container} maxWidth='md'>
+        <Container className={dynamicClasses.container} maxWidth='lg'>
           <RouterTree />
         </Container>
 

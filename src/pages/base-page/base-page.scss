@@ -23,7 +23,6 @@ $drawerSizeLG: 400px;
     background-color: $background;
 
     .container {
-      background-color: white;
       transition: all 0.4s;
       height: 100%;
       overflow: auto;
@@ -52,7 +51,8 @@ $drawerSizeLG: 400px;
       &.in {
         transform: translateX(0%);
         // box-shadow: -60px 0px 22px -60px rgba(0,0,0,0.25);
-        box-shadow: -75px 0px 30px -45px rgba(0, 0, 0, 0.2);
+        // box-shadow: -75px 0px 30px -45px rgba(0, 0, 0, 0.2);
+        box-shadow: -125px 0px 45px -45px rgba(0, 0, 0, 0.12);
 
         &::before {
           display: block;

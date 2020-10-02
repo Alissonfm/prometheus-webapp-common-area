@@ -20,6 +20,7 @@ const ActivityConversation = ({ messages }) => {
 
   return (
     <div className="activity-messages">
+
       {formatMessages}
     </div>
   );
