@@ -1,7 +1,7 @@
 import _map from 'lodash/map';
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Profile } from '../pages';
+import { Profile, Requests } from '../pages';
 
 const ROUTES = [
   {
@@ -18,7 +18,7 @@ const ROUTES = [
   },
   {
     path: '/requests',
-    Component: () => (<div>Solicitações</div>),
+    Component: Requests,
   },
   {
     path: '/activities',

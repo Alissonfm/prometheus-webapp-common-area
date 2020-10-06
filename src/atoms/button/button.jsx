@@ -14,12 +14,12 @@ const COLORS = {
   'warn': 'bg--warn'
 };
 
-const Button = ({ type, color, className, click, children }) => {
-  const buttonType = TYPES[type || 'default'];
+const Button = ({ variant, type, color, className, click, children }) => {
+  const buttonType = TYPES[variant || 'default'];
   const buttonColor = COLORS[color || 'primary'];
   const buttonClasses = `custom-button ${buttonColor} ${className || ''}`;
 
-  return <MuiButton variant={buttonType} className={buttonClasses} onClick={click} disableElevation>{children}</MuiButton>
+  return <MuiButton type={type} variant={buttonType} className={buttonClasses} onClick={click} disableElevation>{children}</MuiButton>
 }
 
 export default Button;

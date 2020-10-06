@@ -1,0 +1,102 @@
+@import '../../assets/css/extendables';
+@import '../../assets/css/mixins';
+@import '../../assets/css/theme';
+
+.request-page {
+    padding-top: 50px;
+    height: 100%;
+    @extend %flex-v-start;
+
+    .page-header {
+        width: 100%;
+        .title {
+            @include fontSize(42);
+            color: $fontDark;
+            padding-bottom: 35px;
+        }
+    }
+
+    .page-content {
+        align-self: stretch;
+        width: 100%;
+        height: 100%;
+
+        .request-search {
+            width: 100%;
+            form {
+                @extend %flex-h-between;
+                width: 100%;
+                position: relative;
+                padding: 35px 15px;
+
+                > div {
+                    @extend %flex-h-between;
+                    align-content: center;
+                }
+
+                .search-term-input {
+                    min-width: 300px;
+                    transform: scale(0.9);
+                }
+
+                .search-button {
+                    margin-left: 10px;
+
+                    .button-text {
+                        padding-left: 15px;
+                    }
+                }
+
+                .filter-selector {
+                    transform: scale(0.9);
+
+                    .MuiInputBase-root {
+                        min-width: 250px;
+                    }
+                }
+            }
+        }
+
+        .requests-table {
+            min-width: 700px;
+            border-top: 1px solid $lightBorder;
+
+            .table-head {
+                .MuiTableCell-head {
+                    @include fontSize(12);
+                    color: $content;
+                    text-transform: uppercase;
+                }
+            }
+
+            .request {
+                border-left: 10px solid transparent;
+                .status-cell {
+                    .status-icon {
+                        @include fontSize(10);
+                    }
+                }
+
+                &.statys--open { 
+                    border-color: $waitingColor; 
+                    .status-cell { color: $waitingColor; } 
+                }
+
+                &.statys--waiting { 
+                    border-color: $fontDark; 
+                    .status-cell { color: $fontDark; } 
+                }
+
+                &.statys--done { 
+                    border-color: $successColor; 
+                    .status-cell { color: $successColor; }
+                }
+
+                &.statys--dispatched { 
+                    border-color: $secondaryColor; 
+                    .status-cell { color: $secondaryColor; } 
+                }
+            }
+        }
+    }
+}

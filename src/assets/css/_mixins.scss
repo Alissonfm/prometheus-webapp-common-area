@@ -1,11 +1,11 @@
-@use 'variables';
+@import 'variables';
 
 //
 // Font-size
 // Mixin funciton, but same as REM css unit logic
 //
 @mixin fontSize($target) {
-    font-size: calc((#{$target} / #{variables.$f-base}) * 1rem);
+    font-size: calc((#{$target} / #{$f-base}) * 1rem);
 }
 
 //
@@ -13,8 +13,8 @@
 // TO DO: https://www.sitepoint.com/cross-media-query-extend-sass/
 //
 @mixin mediaQuery($breakpoint) {
-    @if map-has-key(variables.$breakpoints, $breakpoint) {
-        @media (min-width: map-get(variables.$breakpoints, $breakpoint)) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (min-width: map-get($breakpoints, $breakpoint)) {
             @content;
         }
     }
