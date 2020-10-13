@@ -8,11 +8,13 @@
     @extend %flex-v-start;
 
     .page-header {
+        padding: 15.25px 0;
+        @extend %flex-h-between;
         width: 100%;
+
         .title {
             @include fontSize(42);
             color: $fontDark;
-            padding-bottom: 35px;
         }
     }
 

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import _map from 'lodash/map';
 
-import { 
+import {
     Paper, 
     TextField, 
     FormControl, 
@@ -25,20 +25,11 @@ import { Button as Btn } from '../../atoms';
 import { Avatar } from '../../molecules';
 
 import './requests.scss';
+import NewRequestDialog from './new-request-dialog';
 import REQUESTS from './requests-mock.js';
 
-const DISPLAY_TYPE = {
-    'test-validation': 'Correção de prova',
-    'test-second-chance': 'Segunda Chamada',
-    'special-need': 'Necessidades especiais',
-};
+import { REQUEST_STATUS, REQUEST_TYPES } from '../../helpers/system';
 
-const DISPLAY_STATUS = {
-    'open': { statusText: 'Em aberto', statusStyle: 'statys--open'},
-    'waiting': { statusText: 'Aguardando retorno', statusStyle: 'statys--waiting'},
-    'done': { statusText: 'Concluído', statusStyle: 'statys--done'},
-    'dispatched': { statusText: 'Fechado', statusStyle: 'statys--dispatched'},
-};
 
 const RequestActions = ({request}) => {
 
@@ -54,9 +45,9 @@ const RequestActions = ({request}) => {
 
 const TableRows = () => _map(REQUESTS, (row) => {
     const { id, requester, assingment, grade, date, status, type } = row;
-    const displayType = DISPLAY_TYPE[type];
-    const { statusText, statusStyle } = DISPLAY_STATUS[status];
-    const requestClasses = `request ${statusStyle}` ;
+    const displayType = REQUEST_TYPES[type];
+    const { statusText, statusStyle } = REQUEST_STATUS[status];
+    const requestClasses = `request ${statusStyle}`;
 
     return (
         <TableRow key={id} className={requestClasses}>
@@ -75,19 +66,28 @@ const TableRows = () => _map(REQUESTS, (row) => {
 
 const Requests = (props) => {
 
+    const [openDialog, toggleDialogDisplay] = useState(false);
+
     const searchRequest = ($event) => {
         $event.preventDefault();
         console.log("Trying to search for: ", $event);
     }
 
+    const handleDialogStatus = () => toggleDialogDisplay(!openDialog);
+
     return (
+
         <div className="request-page">
+
+            <NewRequestDialog open={openDialog} handleClose={handleDialogStatus} />
+            
             <div className="page-header">
                 <h2 className="title">Solicitações</h2>
+                <Btn click={handleDialogStatus}>Nova Solicitação</Btn>
             </div>
 
             <Paper className="page-content" elevation={0}>
-                <div class="request-search">
+                <div className="request-search">
                     <form onSubmit={searchRequest} noValidate={true} autoComplete="off">
                         <div>
                             <FormControl variant="outlined">

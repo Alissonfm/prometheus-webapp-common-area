@@ -3,7 +3,8 @@ import React from 'react';
 import './button.scss';
 
 const TYPES = {
-  'default': 'contained'
+  'default': 'contained',
+  'text': '',
 };
 
 const COLORS = {
