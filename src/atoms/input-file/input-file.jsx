@@ -20,7 +20,7 @@ const fileType = (extension) => {
 }
 
 const ButtonTrigger = () => {
-    return <Button click={() => console.log("Button trigger")} >Button Trigger</Button>
+    return <Button click={() => console.log("Button trigger")} ><Icon>add</Icon> Adicionar Arquivo</Button>
 }
 
 const InputTrigger = (props) => {
@@ -48,13 +48,14 @@ const VARIANT_TYPES = {
 
 const InputFile = (props) => {
 
-    const { variant } = props;
+    const { variant, className } = props;
+    const wrapperClasses = `input-file-wrapper ${className || ''}`;
     const files = [];
     const PickTrigger = VARIANT_TYPES[variant || 'button'];
     const handleDelete = (file) => files.splice(files.indexOf(file), 1);
 
     return (
-        <div className="input-file-wrapper">
+        <div className={wrapperClasses}>
 
             <input hidden type='file' value={files} onChange={() => console.log("Files changed: ", files)} />
 

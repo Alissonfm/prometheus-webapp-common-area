@@ -102,3 +102,16 @@
         }
     }
 }
+
+.request-form {
+    @extend %flex-v-center;
+
+    > .MuiTextField-root {
+        padding: 12.5px 0;
+    }
+    
+    > * {
+        align-self: stretch;
+        align-content: stretch;
+    }
+}

@@ -1,0 +1,7 @@
+@import '../../assets/css/extendables';
+
+.input-file-wrapper {
+    @extend %flex-v-between;
+    justify-content: start;
+    padding: 15px 0;
+}

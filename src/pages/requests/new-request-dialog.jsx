@@ -15,34 +15,37 @@ import {
 } from '@material-ui/core';
 
 import { InputFile } from '../../atoms';
+import { Form } from '../../organisms';
 
 import { REQUEST_TYPES } from '../../helpers/system';
 
-const SelectItens = () => {
-    const keys = _keys(REQUEST_TYPES);
-    const values = _values(REQUEST_TYPES);
-    return _map(keys, (key, index) => <MenuItem value={key}>{values[index]}</MenuItem>);
-};
-
+import './requests.scss';
 
 const RequestDetailsDialog = ({open, handleClose, requestData}) => {
 
     const newRequest = !!requestData;
+    const RTkeys = _keys(REQUEST_TYPES);
+    const RTvalues = _values(REQUEST_TYPES);
+
+    const formProps = {
+        fields: [
+            {name: 'type', label: 'Tipo de solicitação', fieldtype: 'select', required: true, options: _map(RTkeys, (key, index) => ({name: RTvalues[index], value: key}))},
+            {name: 'subject', label: 'Assunto', fieldtype: 'text', required: true},
+            {name: 'description', label: 'Descrição', fieldtype: 'textarea', required: true},
+            {name: 'attachment', label: 'Anexo', fieldtype: 'file'}
+        ],
+        handleSubmit: (event) => { event.preventDefault(); console.log("Submitting form: ", event)},
+        className: 'request-form'
+    };
 
     return (
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Nos conte do que você precisa!</DialogTitle>
             <DialogContent>
-                <form className="new-request-form">
-                    <Select name='type' labelId="request-type" id="request-type" label='Selecione um tipo de solicitação' value={age} >
-                        <SelectItens />
-                    </Select>
-                    <TextField name='subject' label='Assunto' />
-                    <TextField name='description' label='Descrição' multiline />
-                    <InputFile />
-                </form>
+                <Form {...formProps} />
             </DialogContent>
-            <DialogActions>
+            <DialogActions
+            >
                 <Button onClick={handleClose} color="primary">
                     Cancel
                 </Button>
@@ -55,3 +58,13 @@ const RequestDetailsDialog = ({open, handleClose, requestData}) => {
 };
 
 export default RequestDetailsDialog;
+
+{/* <form className="new-request-form">
+                    
+<TextField name='type' id="select" label="Selecione um tipo de solicitação" select>
+    {_map(RTkeys, (key, index) => <MenuItem value={key}>{RTvalues[index]}</MenuItem>)}
+</TextField>
+<TextField name='subject' label='Assunto' />
+<TextField name='description' label='Descrição' multiline />
+<InputFile />
+</form> */}
