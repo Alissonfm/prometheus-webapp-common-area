@@ -19,14 +19,14 @@ const BasePage = (props) => {
   };
 
   return (
-    <div className="page">
+    <div className="base-page">
       <Menu sidebarToggle={toggle} />
 
-      <div className='content'>
+      <div className='base-content'>
 
-        <Container className={dynamicClasses.container} maxWidth='lg'>
+        <div className={dynamicClasses.container}>
           <RouterTree />
-        </Container>
+        </div>
 
         <div className={dynamicClasses.drawer}>
           <Sidebar toggle={toggle} />

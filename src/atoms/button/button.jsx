@@ -1,10 +1,13 @@
-import { Button as MuiButton } from '@material-ui/core';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button as MuiButton } from '@material-ui/core';
+
 import './button.scss';
 
 const TYPES = {
   'default': 'contained',
   'text': '',
+  'link': 'link'
 };
 
 const COLORS = {
@@ -15,12 +18,25 @@ const COLORS = {
   'warn': 'bg--warn'
 };
 
-const Button = ({ variant, type, color, className, click, children }) => {
+const ButtonAsLink = ({ to, children, ...buttonProps }) => <Link className='clear--underscore' to={to}><MuiButton {...buttonProps}>{children}</MuiButton></Link>;
+
+const Button = ({ variant, type, color, className, onClick, children, ...props }) => {
   const buttonType = TYPES[variant || 'default'];
   const buttonColor = COLORS[color || 'primary'];
   const buttonClasses = `custom-button ${buttonColor} ${className || ''}`;
 
-  return <MuiButton type={type} variant={buttonType} className={buttonClasses} onClick={click} disableElevation>{children}</MuiButton>
+  const buttonProps = {
+    type, 
+    onClick: onClick || null,
+    variant: buttonType, 
+    className: buttonClasses, 
+    disableElevation: true,
+    ...props,
+  };
+
+  if(buttonType == 'link') return <ButtonAsLink {...buttonProps}>{children}</ButtonAsLink>;
+
+  return <MuiButton {...buttonProps}>{children}</MuiButton>
 }
 
 export default Button;

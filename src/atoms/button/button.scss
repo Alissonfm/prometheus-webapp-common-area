@@ -4,7 +4,6 @@
 .custom-button {
   padding: 12.5px 25px !important;
   font-size: 14px !important;
-  text-transform: none !important;
   font-weight: 700;
 
   .MuiButton-label {
@@ -26,4 +25,8 @@
     }
   }
 
+}
+
+.clear--underscore {
+  text-decoration: none;
 }

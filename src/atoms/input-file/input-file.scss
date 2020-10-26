@@ -4,4 +4,12 @@
     @extend %flex-v-between;
     justify-content: start;
     padding: 15px 0;
+
+    .file-list {
+        padding: 15px;
+
+        .file-preview-chip {
+            margin: 7.5px 7.5px;
+        }
+    }
 }

@@ -1,0 +1,62 @@
+@import '../../assets/css/extendables';
+@import '../../assets/css/mixins';
+@import '../../assets/css/theme';
+
+.activities-page {
+    padding-top: 50px;
+
+    .page-header {
+        @extend %flex-h-between;
+        padding: 15px 0;
+
+        .page-title {
+            @include fontSize(42);
+            display: inline-block;
+
+            > * {
+                margin-left: 25px;
+                text-decoration: none !important;
+            }
+        }
+
+        .activity-filter {
+            min-width: 150px;
+        }
+    }
+    .page-body {
+        padding-top: 30px;
+
+        .activities-table {
+            .table-head {
+                th {
+                    @include fontSize(12);
+                    color: $fontLight;
+                    padding-top: 0;
+                    padding-bottom: 10px;
+                    text-transform: uppercase;
+                    border-bottom: none;
+                }
+            }
+
+            .activity {
+                td {
+                    background-color: white;
+                    border-bottom: 20px solid transparent;
+                    background-clip: padding-box;
+                }
+
+                &:last-child {
+                    td {
+                        border-bottom: none;
+                    }
+                }
+
+                .activity-cell {
+                    .activity-icon {
+                        @include fontSize(10);
+                    }
+                }
+            }
+        }
+    }
+}

@@ -77,13 +77,13 @@ const Requests = (props) => {
 
     return (
 
-        <div className="request-page">
+        <div className="request-page page">
 
             <NewRequestDialog open={openDialog} handleClose={handleDialogStatus} />
             
             <div className="page-header">
                 <h2 className="title">Solicitações</h2>
-                <Btn click={handleDialogStatus}>Nova Solicitação</Btn>
+                <Btn onClick={handleDialogStatus}>Nova Solicitação</Btn>
             </div>
 
             <Paper className="page-content" elevation={0}>
