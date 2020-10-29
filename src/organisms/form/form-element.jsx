@@ -6,16 +6,16 @@ import { InputFile } from '../../atoms';
 
 import './form.scss';
 
-const TextAreaField = (props) => <TextField variant="outlined" {...props} label={props.label} multiline />;
+const TextAreaField = (props) => <TextField {...props} variant="outlined" label={props.label} multiline />;
 
 const SelectField = (props) => {
     const { options } = props;
     const optionComponents = _map(options, ({name, value}) => <MenuItem key={`${name}-${Math.random}`} value={value}>{name}</MenuItem>);
-    return <TextField variant="outlined" {...props} label={props.label} select><MenuItem value=''>Selecionar...</MenuItem>{optionComponents}</TextField>;
+    return <TextField {...props} variant="outlined" label={props.label} select><MenuItem value=''>Selecionar...</MenuItem>{optionComponents}</TextField>;
 };
 
 const FIELD_COMPONENTS = {
-    text: (props) => <TextField variant="outlined" {...props} label={props.label} />,
+    text: (props) => <TextField {...props} variant="outlined" label={props.label} />,
     textarea: TextAreaField,
     select: SelectField,
     file: InputFile,

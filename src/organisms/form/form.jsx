@@ -10,13 +10,15 @@ const extractFieldNames = (fields) => _reduce(fields, (accumulator, {name, initi
 
 const Form = (props) => {
 
-    const {fields, validateRules, handleSubmit, className} = props;
+    const {fields, validateRules, handleSubmit, className, customBody, children} = props;
+
+    const defaultForm = (props) => <FormElement {...props} fields={fields} className={className} />;
 
     const formikConfig = {
         initialValues: extractFieldNames(fields),
         onSubmit: handleSubmit,
         validate: validateRules,
-        children: (props) => <FormElement {...props} fields={fields} className={className} />,
+        children: customBody ? children : defaultForm,
     };
 
     return <Formik {...formikConfig} />;
@@ -29,14 +31,16 @@ Form.propTypes = {
         required: PropTypes.bool,
         type: PropTypes.string,
         fieldtype: PropTypes.string,
-        initialValue: PropTypes.string,
+        initialValue: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
         options: PropTypes.arrayOf(PropTypes.shape({
             name: PropTypes.string,
             value: PropTypes.string,
         })),
+        className: PropTypes.string,
     })),
     validateRules: PropTypes.arrayOf(PropTypes.func),
     handleSubmit: PropTypes.func,
+    customBody: PropTypes.bool,
 };
 
 export default Form;
