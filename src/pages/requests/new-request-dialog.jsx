@@ -10,8 +10,6 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
-    MenuItem,
-    TextField
 } from '@material-ui/core';
 
 import { InputFile } from '../../atoms';
@@ -58,13 +56,3 @@ const RequestDetailsDialog = ({open, handleClose, requestData}) => {
 };
 
 export default RequestDetailsDialog;
-
-{/* <form className="new-request-form">
-                    
-<TextField name='type' id="select" label="Selecione um tipo de solicitação" select>
-    {_map(RTkeys, (key, index) => <MenuItem value={key}>{RTvalues[index]}</MenuItem>)}
-</TextField>
-<TextField name='subject' label='Assunto' />
-<TextField name='description' label='Descrição' multiline />
-<InputFile />
-</form> */}

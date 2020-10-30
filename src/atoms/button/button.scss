@@ -25,6 +25,21 @@
     }
   }
 
+  &.bg--cancel {
+    background-color: $cancelColor;
+    box-shadow: 0px 0px 20px -6px $cancelColor;
+
+    .MuiButton-label {
+      color: white;
+      font-weight: 700;
+    }
+
+    &:hover {
+      background-color: $cancelColor;
+      opacity: 0.75;
+    }
+  }
+
 }
 
 .clear--underscore {

@@ -1,9 +1,12 @@
 import React from 'react';
 
-import { Paper, Divider, TextField, IconButton, Dialog } from '@material-ui/core';
+import { Paper, Divider, TextField, IconButton, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
+import CreateIcon from '@material-ui/icons/Create';
 
 import { Button } from '../../atoms';
 import { Form } from '../../organisms';
+
+import QuestionCreator from './question-creator';
 
 import './activity-creator.scss';
 
@@ -14,62 +17,87 @@ const GRADES_MOCK = [
 ];
 
 const FORM_CONFIG = [
-    { name: 'title', label: 'Nome: ', required: true, type: 'text', fieldtype: '', initialValue: 'Lore ipsum'},
-    { name: 'deadline', label: 'Data limite: ', required: true, type: 'date', fieldtype: '',  initialValue: '01/01/2021'},
-    { name: 'grade', label: 'Para a turma: ', required: true, type: 'text', fieldtype: 'select', options: GRADES_MOCK },
+    { name: 'title', label: 'Nome: ', required: true, fieldtype: 'text', initialValue: 'Lore ipsum'},
+    { name: 'deadline', label: 'Data limite: ', required: true, fieldtype: 'date',  initialValue: '01/01/2021'},
+    { name: 'grade', label: 'Para a turma: ', required: true,  fieldtype: 'select', options: GRADES_MOCK },
     { name: 'questions', label: 'Questôes a serem resolvidas: ', required: true, type: 'text', fieldtype: ''},
 ];
 
-const SmallDialog = ({ opened, data }) => {
-    
+const SmallDialog = ({ opened, data, handleClose }) => {
     if (!opened) return null;
 
-    const { name, valaue } = data;
+    console.log("Small dialog data: ", data);
+
+    const { label, value, onChange } = data;
     
+    let fieldValue = Object.assign("", value);
+
+    const handleConfirm = () => {onChange(fieldValue); handleClose();}; 
+
     return (
         <Dialog open>
-            <Form fields={data} />
+            <DialogTitle id="form-dialog-title">{label}</DialogTitle>
+            <DialogContent>
+                <TextField {...data} value='' value={fieldValue} onChange={($event) => console.log("Field value: ", $event.target.value)} />
+            </DialogContent>
+            <DialogActions><Button onClick={handleConfirm} color="primary">Ok</Button></DialogActions>
         </Dialog>
     );
 };
 
 const CustomForm = (props) => {
+
     console.log("Custom form props: ", props);
-    const { values } = props;
+
+    const { values, setFieldValue, unregisterField, getFieldMeta, getFieldHelpers } = props;
     const { title, deadline, grade, questions } = values;
+
+    console.log("getFieldMeta", getFieldMeta('title'));
+    console.log("getFieldHelpers", getFieldHelpers('title'));
+
+    const handleFieldChange = (field, newValue) => setFieldValue(field, newValue, false);
+    const handleTitleChange = ($event) => handleFieldChange('title', $event.target.value);
+    const handleDeadlineChange = ($event) => handleFieldChange('deadline', $event.target.value);
+    const titleEditConfig = { name: 'title', label: 'Título', variant: 'outlined', type: 'text', onChange: handleTitleChange };
+    const deadlineEditConfig = { name: 'deadline', label: 'Data limite', variant: 'outlined', type: 'date', onChange: handleDeadlineChange };
   
     const [smallDialog, updateSmallDialog] = React.useState({ opened: false, data: null});
+    const toggleSmallDialogVisibility = () => updateSmallDialog(oldState => ({ opened: !oldState.opened, data: null }));
+    const editTitle = () => updateSmallDialog((oldState) => ({ opened: !oldState.opened, data: titleEditConfig }));
+    const editDeadline = () => updateSmallDialog((oldState) => ({ opened: !oldState.opened, data: deadlineEditConfig}));
 
-    const toggleSmallDialogVisibility = () => updateSmallDialog(oldState => ({ opened: !oldState.opened}));
-    const editTitle = () => updateSmallDialog(() => ({ data: { name: 'title', label: 'Título', initalValue: title, fieldtype: 'text' } }));
-    const editDeadline = () => updateSmallDialog(() => ({ data: { name: 'deadline', label: 'Data limite', initalValue: deadline, fieldtype: 'number' } }));
+    const newQuestion = () => {console.log('New blank question')};
+    const duplicateQuestion = () => {console.log('Remove this question')};
+    const removeQuestion = () => {console.log('Duplicate this question')};
 
     return (
         <div className='mirror-form-wrapper'>
 
-            <SmallDialog {...smallDialog} />
+            <SmallDialog {...smallDialog} handleClose={toggleSmallDialogVisibility} />
 
             <div className='mirror-form-header'>
                 <div>
                     <small>Título: </small>
-                    <h4>{title} <IconButton></IconButton></h4>
+                    <h4>{title}<IconButton aria-label='Editar título' onClick={editTitle}><CreateIcon /></IconButton></h4>
                 </div>
                 <div>
                     <small>Data limite: </small>
-                    <h4>{deadline}</h4>
+                    <h4>{deadline}<IconButton aria-label='Editar data' onClick={editDeadline}><CreateIcon /></IconButton></h4>
                 </div>
             </div>
 
-            <Divider />
-
             <div className='mirror-form-content'>
-
+                <QuestionCreator />
             </div>
 
-            <Divider />
-
             <div className='mirror-form-foot'>
+                
+                <Button>Nova Questão</Button>
 
+                <div className='btns--align-right'>
+                    <Button color='cancel'>Cancelar</Button>
+                    <Button>Salvar</Button>
+                </div>
             </div>
 
         </div>
@@ -84,7 +112,7 @@ const ActivityCreator = (props) => {
         fields: FORM_CONFIG,
         customBody: true,
         handleSubmit,
-        children: CustomForm,
+        children: (props) => <CustomForm {...props} />,
     };
 
     return (

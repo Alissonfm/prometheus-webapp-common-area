@@ -11,14 +11,17 @@ const extractFieldNames = (fields) => _reduce(fields, (accumulator, {name, initi
 const Form = (props) => {
 
     const {fields, validateRules, handleSubmit, className, customBody, children} = props;
-
+    
+    console.log("Form props: ", props);
+    
     const defaultForm = (props) => <FormElement {...props} fields={fields} className={className} />;
+    const customForm = (props) => React.createElement(children, {...props, fields, className });
 
     const formikConfig = {
         initialValues: extractFieldNames(fields),
         onSubmit: handleSubmit,
         validate: validateRules,
-        children: customBody ? children : defaultForm,
+        children: customBody ? customForm : defaultForm,
     };
 
     return <Formik {...formikConfig} />;
