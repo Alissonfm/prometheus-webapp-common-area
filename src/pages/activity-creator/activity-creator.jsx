@@ -1,5 +1,7 @@
 import React from 'react';
 
+import _map from 'lodash/map';
+
 import { Paper, Divider, TextField, IconButton, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 
@@ -45,12 +47,22 @@ const SmallDialog = ({ opened, data, handleClose }) => {
     );
 };
 
+const QuestionList = ({questions, handleDuplicate, handleRemove, ...props}) => _map(questions, question => <QuestionCreator 
+    {...question}
+    {...props}
+    handleDuplicate={() => handleDuplicate(question)}
+    handleRemove={() => handleRemove(question)}
+/>);
+
 const CustomForm = (props) => {
 
     console.log("Custom form props: ", props);
 
     const { values, setFieldValue, unregisterField, getFieldMeta, getFieldHelpers } = props;
     const { title, deadline, grade, questions } = values;
+
+    const [smallDialog, updateSmallDialog] = React.useState({ opened: false, data: null});
+    const [questionsArr, updateQuestionsArr] = React.useState((questions || [{}]))
 
     console.log("getFieldMeta", getFieldMeta('title'));
     console.log("getFieldHelpers", getFieldHelpers('title'));
@@ -60,18 +72,17 @@ const CustomForm = (props) => {
     const handleDeadlineChange = ($event) => handleFieldChange('deadline', $event.target.value);
     const titleEditConfig = { name: 'title', label: 'Título', variant: 'outlined', type: 'text', onChange: handleTitleChange };
     const deadlineEditConfig = { name: 'deadline', label: 'Data limite', variant: 'outlined', type: 'date', onChange: handleDeadlineChange };
-  
-    const [smallDialog, updateSmallDialog] = React.useState({ opened: false, data: null});
+
     const toggleSmallDialogVisibility = () => updateSmallDialog(oldState => ({ opened: !oldState.opened, data: null }));
     const editTitle = () => updateSmallDialog((oldState) => ({ opened: !oldState.opened, data: titleEditConfig }));
     const editDeadline = () => updateSmallDialog((oldState) => ({ opened: !oldState.opened, data: deadlineEditConfig}));
 
-    const newQuestion = () => {console.log('New blank question')};
-    const duplicateQuestion = () => {console.log('Remove this question')};
-    const removeQuestion = () => {console.log('Duplicate this question')};
+    const newQuestion = () => { updateQuestionsArr(oldState => [{}].concat(oldState)); console.log('New blank question: ', questionsArr);};
+    const duplicateQuestion = (question) => {console.log('Duplicate this question: ', question)};
+    const removeQuestion = (question) => {console.log('Remove this question: ', question)};
 
     return (
-        <div className='mirror-form-wrapper'>
+        <>
 
             <SmallDialog {...smallDialog} handleClose={toggleSmallDialogVisibility} />
 
@@ -87,12 +98,12 @@ const CustomForm = (props) => {
             </div>
 
             <div className='mirror-form-content'>
-                <QuestionCreator />
+                <QuestionList questions={questionsArr} handleDuplicate={duplicateQuestion} handleRemove={removeQuestion} />
             </div>
 
             <div className='mirror-form-foot'>
                 
-                <Button>Nova Questão</Button>
+                <Button onClick={newQuestion}>Nova Questão</Button>
 
                 <div className='btns--align-right'>
                     <Button color='cancel'>Cancelar</Button>
@@ -100,7 +111,7 @@ const CustomForm = (props) => {
                 </div>
             </div>
 
-        </div>
+        </>
     );
 };
 
@@ -126,7 +137,7 @@ const ActivityCreator = (props) => {
                 <Button variant='link' to='/activities'> Voltar para lista de atividades </Button>
             </div>
 
-            <Paper className='page-content' elevation={0}><Form {...formProps} /></Paper>
+            <Paper className='page-content mirror-form-wrapper' elevation={0}><Form {...formProps} /></Paper>
         </div>
     );
 }

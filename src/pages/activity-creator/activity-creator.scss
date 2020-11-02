@@ -3,45 +3,60 @@
 @import '../../assets/css/extendables';
 
 .activity-creator {
-    .page-content {
-        height: 100%;
-        width: 100%;
-
-        .mirror-form-wrapper {
+    .page-content.mirror-form-wrapper {
             @extend %flex-v-between;
             padding: 25px;
-            height: 100%;
+            height: calc(100% - 110px);
             width: 100%;
 
             .mirror-form-header {
                 @extend %flex-h-between;
+                position: relative;
                 flex-wrap: nowrap;
                 width: 100%;
+                padding-bottom: 25px;
+
+                &::after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    width: 100%;
+                    height: 1px;
+                    background-color: $fontLight;
+                    left: 0;
+                    bottom: 17.5px;
+                    opacity: 0.3;
+                }
 
                 h4 {
-                    @include fontSize(32);
+                    @include fontSize(24);
                 }
-            }
-
-            > hr {
-                margin: 25px 0;
-                width: 100%;
             }
 
             .mirror-form-content {
                 width: 100%;
-                height: 100%;
+                height: calc(100% - 50px);
                 overflow-y: auto;
+
+                h4 {
+                    color: $primaryColorRGB;
+                }
 
                 .question-wrapper {
                     padding: 25px;
                     position: relative;
                     width: 100%;
                     background-color: $lightBackgroundAlt;
+                    margin-bottom: 25px;
+
+                    &:last-child {
+                        margin-bottom: initial;
+                    }
 
                     .question-header {
                         @extend %flex-h-between;
                         flex-wrap: nowrap;
+                        padding-bottom: 12.5px;
 
                         .question-title {
                             width: 70%;
@@ -52,8 +67,13 @@
                             width: 30%;
                         }
 
-                        .question-title > *, .question-type > * {
-                            width: 100%;
+                        .question-title, .question-type {
+                            > * {
+                                width: 100%;
+                            }
+                            .tip { 
+                                padding-bottom: 10px;
+                            }
                         }
                     }
 
@@ -69,6 +89,7 @@
             .mirror-form-foot {
                 @extend %flex-h-between;
                 width: 100%;
+                padding-top: 25px;
 
                 .btns--align-right {
                     @extend %flex-h-end;
@@ -77,6 +98,28 @@
                         margin-right: 25px;
                     }
                 }
+            }
+        }
+
+    .right-choices-wrapper {
+        padding-top: 12.5px;
+        padding-bottom: 25px;
+        border-top: 1px solid $lightBorder;
+
+        .choice {
+            padding-top: 15px;
+
+            &:first-child {
+                padding-bottom: initial;
+            }
+
+            &.answer .MuiInputBase-root {
+                border-color: $primaryColorRGB;
+            }
+
+            > button {
+                margin-left: 10px;
+                color: $primaryColorRGB;
             }
         }
     }
