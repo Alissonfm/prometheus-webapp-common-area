@@ -4,7 +4,7 @@ import { v4 as uuidV4 } from 'uuid';
 import _map from 'lodash/map';
 import _filter from 'lodash/filter';
 
-import { IconButton, Icon, TextField } from '@material-ui/core'; 
+import Choice from './choice';
 
 import './activity-creator.scss';
 
@@ -17,56 +17,22 @@ const BLANK_CHOICE = {
     setAsAnswer: void null
 };
 
-const Choice = (props) => {
-    const { text, isLast, isAnswer, handleRemove, handleAdd, setAsAnswer } = props;
-    const choiceClasses = isAnswer ? 'choice answer' : 'choice';
+const RightChoice = ({answers=[Object.assign({}, BLANK_CHOICE)], handleAdd, handleRemove, handleUpdate}) => {
 
-    return (
-        <div className={choiceClasses}>
-            <TextField placeholder='Digite aqui a alternativa...' variant='outlined' type='text' value={text} />
-            <IconButton onClick={setAsAnswer} aria-label='Marcar como alternativa correta'><Icon>edit</Icon></IconButton>
-            <IconButton onClick={handleRemove} aria-label='Remover esta alternativa'><Icon>delete_outline</Icon></IconButton>
-            { isLast && <IconButton onClick={handleAdd} aria-label='Adicoinar alternativa em branco'><Icon>add</Icon></IconButton>}
-        </div>
-    );
-}
+    const [choicesArr, updateChoicesArr] = React.useState(answers);
 
-const RightChoice = (props) => {
-
-    const { choices } = props;
-    const [choicesArr, updateChoicesArr] = React.useState((choices || [Object.assign({}, BLANK_CHOICE)]));
-
-    const handleRemove = (choice) => {
+    const removeChoice = (choice) => { 
         console.log("Remove this choice: ", choice);
-        updateChoicesArr( oldState => {
-            const newState = _filter(oldState, ({id}) => id != choice.id);
-            console.log('New state: ', newState);
-            return newState;
-        });
+        handleRemove(choice);
     };
     
-    const handleAdd = () => { 
-        updateChoicesArr(oldState => [
-            Object.assign(
-                {}, 
-                {...BLANK_CHOICE, id: uuidV4()}
-            )
-        ].concat(oldState)); 
-        console.log("Add blank choice: ", choicesArr);
-    };
+    const addChoice = () => handleAdd(BLANK_CHOICE);
+
     
     const setAsAnswer = (answer) => {
-        updateChoicesArr(oldState => { 
-            const newState = _map(
-                oldState,
-                choice => {
-                    choice.id === answer.id ? choice.isAnswer = true : choice.isAnswer = false;
-                    return choice;
-                }
-            );
-            console.log("Set as answer newState: ", newState);
-            return newState;
-        });
+        answer.isAnswer = !answer.isAnswer;
+        console.log("Set as answer newState: ", answer);
+        handleUpdate(answer);
     };
 
     const mapedChoices = _map(choicesArr, (choice, index) => {
@@ -74,8 +40,8 @@ const RightChoice = (props) => {
             ...choice,
             key: choice.id,
             isLast: (choicesArr.length - (index + 1)) == 0,
-            handleAdd, 
-            handleRemove: () => handleRemove(choice), 
+            addChoice, 
+            handleRemove: () => removeChoice(choice), 
             setAsAnswer: () => setAsAnswer(choice)
         };
 

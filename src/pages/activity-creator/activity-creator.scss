@@ -6,7 +6,7 @@
     .page-content.mirror-form-wrapper {
             @extend %flex-v-between;
             padding: 25px;
-            height: calc(100% - 110px);
+            height: calc(100% - 86px);
             width: 100%;
 
             .mirror-form-header {
@@ -26,6 +26,11 @@
                     left: 0;
                     bottom: 17.5px;
                     opacity: 0.3;
+                }
+
+                small {
+                    font-weight: 800;
+                    color: $primaryColorRGB;
                 }
 
                 h4 {
@@ -113,7 +118,7 @@
                 padding-bottom: initial;
             }
 
-            &.answer .MuiInputBase-root {
+            &.answer fieldset {
                 border-color: $primaryColorRGB;
             }
 
@@ -121,6 +126,20 @@
                 margin-left: 10px;
                 color: $primaryColorRGB;
             }
+        }
+    }
+}
+
+.activity-creator-small-dialog-content {
+    @extend %flex-v-center;
+    align-content: stretch;
+    
+    > * {
+        width: 100%;
+        margin-bottom: 25px !important;
+
+        &:last-child {
+            margin-bottom: initial !important;
         }
     }
 }

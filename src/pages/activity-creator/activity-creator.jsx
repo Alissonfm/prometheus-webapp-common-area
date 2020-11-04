@@ -1,16 +1,23 @@
 import React from 'react';
 
+import { v4 as uuidV4 } from 'uuid';
 import _map from 'lodash/map';
+import _filter from 'lodash/filter';
 
-import { Paper, Divider, TextField, IconButton, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
+import { Paper, TextField, Icon, IconButton, Dialog, DialogTitle, DialogContent, DialogActions, MenuItem } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 
 import { Button } from '../../atoms';
-import { Form } from '../../organisms';
-
 import QuestionCreator from './question-creator';
 
 import './activity-creator.scss';
+
+const BLANK_QUESTION = {
+    id: uuidV4(),
+    title: 'Lore ipsum',
+    type: '',
+    answers: [],
+};
 
 const GRADES_MOCK = [
     { name: 'T100', value : 'T100'},
@@ -18,112 +25,92 @@ const GRADES_MOCK = [
     { name: 'T300', value : 'T300'},
 ];
 
-const FORM_CONFIG = [
-    { name: 'title', label: 'Nome: ', required: true, fieldtype: 'text', initialValue: 'Lore ipsum'},
-    { name: 'deadline', label: 'Data limite: ', required: true, fieldtype: 'date',  initialValue: '01/01/2021'},
-    { name: 'grade', label: 'Para a turma: ', required: true,  fieldtype: 'select', options: GRADES_MOCK },
-    { name: 'questions', label: 'Questôes a serem resolvidas: ', required: true, type: 'text', fieldtype: ''},
-];
+const ACTIVITY_MOCK = { title: 'Lore ipsum', deadline: '01/01/2021', grade: 'T300'};
 
 const SmallDialog = ({ opened, data, handleClose }) => {
+
+    const [dialogState, updateDialogState] = React.useState({...data});
+
     if (!opened) return null;
 
     console.log("Small dialog data: ", data);
-
-    const { label, value, onChange } = data;
-    
-    let fieldValue = Object.assign("", value);
-
-    const handleConfirm = () => {onChange(fieldValue); handleClose();}; 
+    const { title, deadline, grade } = dialogState;
+    const changeTitle = ($event) => updateDialogState({...dialogState, title: $event.target.value});
+    const changeDeadline = ($event) => updateDialogState({...dialogState, deadline: $event.target.value});
+    const changeGrade = ($event) => updateDialogState({...dialogState, grade: $event.target.value});
+    const onCloseDialog = () => handleClose(dialogState);
 
     return (
         <Dialog open>
-            <DialogTitle id="form-dialog-title">{label}</DialogTitle>
-            <DialogContent>
-                <TextField {...data} value='' value={fieldValue} onChange={($event) => console.log("Field value: ", $event.target.value)} />
+            <DialogTitle id="form-dialog-title">Configurações principais da Atividade: </DialogTitle>
+            <DialogContent className='activity-creator-small-dialog-content'>
+                <TextField label='Título:' variant='outlined' defaultValue={title} onChage={changeTitle} />
+                <TextField label='Data de entrega limite:' variant='outlined' defaultValue={deadline} type='date' onChange={changeDeadline} />
+                <TextField label='Turma detinada:' variant='outlined' defaultValue={grade} select onChange={changeGrade} >
+                    {_map(GRADES_MOCK, ({name, value}) => <MenuItem value={value}>{name}</MenuItem>)}
+                </TextField>
             </DialogContent>
-            <DialogActions><Button onClick={handleConfirm} color="primary">Ok</Button></DialogActions>
+            <DialogActions><Button onClick={onCloseDialog} color="primary">Ok</Button></DialogActions>
         </Dialog>
     );
 };
 
-const QuestionList = ({questions, handleDuplicate, handleRemove, ...props}) => _map(questions, question => <QuestionCreator 
-    {...question}
-    {...props}
-    handleDuplicate={() => handleDuplicate(question)}
-    handleRemove={() => handleRemove(question)}
-/>);
-
-const CustomForm = (props) => {
-
-    console.log("Custom form props: ", props);
-
-    const { values, setFieldValue, unregisterField, getFieldMeta, getFieldHelpers } = props;
-    const { title, deadline, grade, questions } = values;
-
-    const [smallDialog, updateSmallDialog] = React.useState({ opened: false, data: null});
-    const [questionsArr, updateQuestionsArr] = React.useState((questions || [{}]))
-
-    console.log("getFieldMeta", getFieldMeta('title'));
-    console.log("getFieldHelpers", getFieldHelpers('title'));
-
-    const handleFieldChange = (field, newValue) => setFieldValue(field, newValue, false);
-    const handleTitleChange = ($event) => handleFieldChange('title', $event.target.value);
-    const handleDeadlineChange = ($event) => handleFieldChange('deadline', $event.target.value);
-    const titleEditConfig = { name: 'title', label: 'Título', variant: 'outlined', type: 'text', onChange: handleTitleChange };
-    const deadlineEditConfig = { name: 'deadline', label: 'Data limite', variant: 'outlined', type: 'date', onChange: handleDeadlineChange };
-
-    const toggleSmallDialogVisibility = () => updateSmallDialog(oldState => ({ opened: !oldState.opened, data: null }));
-    const editTitle = () => updateSmallDialog((oldState) => ({ opened: !oldState.opened, data: titleEditConfig }));
-    const editDeadline = () => updateSmallDialog((oldState) => ({ opened: !oldState.opened, data: deadlineEditConfig}));
-
-    const newQuestion = () => { updateQuestionsArr(oldState => [{}].concat(oldState)); console.log('New blank question: ', questionsArr);};
-    const duplicateQuestion = (question) => {console.log('Duplicate this question: ', question)};
-    const removeQuestion = (question) => {console.log('Remove this question: ', question)};
-
-    return (
-        <>
-
-            <SmallDialog {...smallDialog} handleClose={toggleSmallDialogVisibility} />
-
-            <div className='mirror-form-header'>
-                <div>
-                    <small>Título: </small>
-                    <h4>{title}<IconButton aria-label='Editar título' onClick={editTitle}><CreateIcon /></IconButton></h4>
-                </div>
-                <div>
-                    <small>Data limite: </small>
-                    <h4>{deadline}<IconButton aria-label='Editar data' onClick={editDeadline}><CreateIcon /></IconButton></h4>
-                </div>
-            </div>
-
-            <div className='mirror-form-content'>
-                <QuestionList questions={questionsArr} handleDuplicate={duplicateQuestion} handleRemove={removeQuestion} />
-            </div>
-
-            <div className='mirror-form-foot'>
-                
-                <Button onClick={newQuestion}>Nova Questão</Button>
-
-                <div className='btns--align-right'>
-                    <Button color='cancel'>Cancelar</Button>
-                    <Button>Salvar</Button>
-                </div>
-            </div>
-
-        </>
-    );
+const QuestionList = ({questions, ...props}) => {
+    if (!questions) return null;
+    return _map(questions, question => <QuestionCreator {...question} {...props} key={question.id} />);
 };
 
 const ActivityCreator = (props) => {
 
-    const handleSubmit = ($event) => { $event.preventDefault(); console.log("Submit do formulário: ", $event.target);}
-    
-    const formProps = {
-        fields: FORM_CONFIG,
-        customBody: true,
-        handleSubmit,
-        children: (props) => <CustomForm {...props} />,
+    const [activity, updateActivity] = React.useState({ ...ACTIVITY_MOCK, id: uuidV4() });
+    const [smallDialog, updateSmallDialog] = React.useState({ opened: false, data: null});
+
+    const { title, deadline, grade, questions} = activity;
+
+    const openSmallDialog = () => updateSmallDialog(oldState => ({ opened: !oldState.opened, data: { title, deadline, grade} }));
+    const closeSmallDialog = () => updateSmallDialog(oldState => ({ opened: !oldState.opened, data: null }));
+
+    const updateFromSmalldialog = (newData) => {
+        console.log("Data from small dialog: ", newData);
+        const { title, deadline, grade } = newData;
+        updateActivity((oldState) => ({ ...oldState, title, deadline, grade }));
+        closeSmallDialog();
+    };
+
+    const newQuestion = () => updateActivity(({questions, ...oldState}) => {
+        console.log("Old state: ", questions);
+        const newQuestion = Object.assign({}, {...BLANK_QUESTION, id: uuidV4()});
+        const newState = questions ? [newQuestion].concat(questions) : [newQuestion];
+        console.log("New state: ", newState);
+        return { ...oldState, questions: newState };
+    });
+
+    const updateQuestion = (targetQuestion) => {
+        console.log("Save terget question: ", targetQuestion);
+        console.log("Old questions: ", activity.questions);
+        updateActivity(({questions, ...activity}) => {
+            const newQuestions = _filter(questions, ({id}) => id !== targetQuestion.id);
+            console.log("NewQuestions: ", newQuestions);
+            newQuestions.push(targetQuestion);
+            return {...activity, questions: newQuestions};
+        });
+    };
+
+    const duplicateQuestion = (targetQuestion) => {
+        console.log('Duplicate this question: ', targetQuestion);
+        updateActivity(({questions, ...oldState}) => {
+            const copiedQuestion = Object.assign({}, {...targetQuestion, id: uuidV4()});
+            const newState = [copiedQuestion].concat(questions);
+            return { ...oldState, questions: newState };
+        });
+    };
+
+    const removeQuestion = (targetQuestion) => { 
+        console.log('Remove this question: ', targetQuestion);
+        updateActivity(({questions, ...oldState}) => {
+            const newState =  _filter(questions, (question) => question.id != targetQuestion.id);
+            return { ...oldState, questions: newState };
+        })
     };
 
     return (
@@ -131,13 +118,46 @@ const ActivityCreator = (props) => {
             
             <div className='page-header'>
                 <h2 className='page-title'>
-                    Nova atividade/avaliação
+                    Nova atividade
                 </h2>
 
-                <Button variant='link' to='/activities'> Voltar para lista de atividades </Button>
+                <Button variant='link' to='/activities' title='Voltar para a lista de atividades'> <Icon>arrow_back</Icon> Lista </Button>
             </div>
 
-            <Paper className='page-content mirror-form-wrapper' elevation={0}><Form {...formProps} /></Paper>
+            <Paper className='page-content mirror-form-wrapper' elevation={0}>
+
+                <SmallDialog {...smallDialog} handleClose={updateFromSmalldialog} />
+
+                <div className='mirror-form-header'>
+                    <div>
+                        <small>Título: </small>
+                        <h4>{title}<IconButton aria-label='Editar título' onClick={openSmallDialog}><CreateIcon /></IconButton></h4>
+                    </div>
+                    <div>
+                        <small>Data limite: </small>
+                        <h4>{deadline}<IconButton aria-label='Editar data' onClick={openSmallDialog}><CreateIcon /></IconButton></h4>
+                    </div>
+                    <div>
+                        <small>Turma: </small>
+                        <h4>{grade}<IconButton aria-label='Editar turma' onClick={openSmallDialog}><CreateIcon /></IconButton></h4>
+                    </div>
+                </div>
+
+                <div className='mirror-form-content'>
+                    <QuestionList questions={questions} handleDuplicate={duplicateQuestion} handleRemove={removeQuestion} handleUpdate={updateQuestion} />
+                </div>
+
+                <div className='mirror-form-foot'>
+                    
+                    <Button onClick={newQuestion}>Nova Questão</Button>
+
+                    <div className='btns--align-right'>
+                        <Button color='cancel'>Cancelar</Button>
+                        <Button>Salvar</Button>
+                    </div>
+                </div>
+
+            </Paper>
         </div>
     );
 }
