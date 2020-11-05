@@ -31,7 +31,7 @@ const QUESTION_TYPE = {
     relational: { value: 'relational', name: 'Relacione as colunas da esquerda e direita', component: Relational },
 };
 
-const QuestionAnswer = ({type, answers, ...props}) => {
+const QuestionAnswer = ({type, ...props}) => {
     if (!type) return null;
     const Component = QUESTION_TYPE[type].component;
     return <Component {...props} />
@@ -57,13 +57,14 @@ const QuestionCreator = ({ handleUpdate, handleDuplicate, handleRemove, ...props
 
     const changeType = ($event) => {
         console.log("Change type event: ", $event.target.value);
-        updateQuestion({ ...question, type: $event.target.value});
+        updateQuestion({ ...question, type: $event.target.value, answers: []});
     };
 
     const addAnswer = (newAnswer) => {
-        console.log('New answer: ', newAnswer);
+        // console.log('New answer: ', newAnswer);
         const { answers, ...oldState } = question;
         const newArray = [Object.assign({}, {...newAnswer, id: uuidV4()})].concat(answers);
+        // console.log("New answers array state:", newArray);
         updateQuestion(() => ({...oldState, answers: newArray}));
     };
 
@@ -79,11 +80,21 @@ const QuestionCreator = ({ handleUpdate, handleDuplicate, handleRemove, ...props
         const { answers, ...oldState } = question;
         const stateRef = _find(answers, ({id}) => id === target.id);
         const index = answers.indexOf(stateRef);
-        answers.splice(index, 1, [target]);
+        // console.log("Before update splice: ", answers);
+        answers.splice(index, 1, target);
+        // console.log("Afters update splice: ", answers);
         updateQuestion(() => ({...oldState, answers: answers}));
     };
 
+    const updateAllAnswers = (updatedAnswers) => {
+        console.log("All updated answers: ", updatedAnswers);
+        const {answers, ...oldState} = question;
+        updateQuestion(() => ({ ...oldState, answers: updatedAnswers}));
+    }
+
     const mapQuestionsType = () => _map(QUESTION_TYPE, (type) => <MenuItem key={`type-${type.value}`} value={type.value}>{type.name}</MenuItem> );
+
+    const questionAnswerProps = { type, answers, handleAdd: addAnswer, handleRemove: removeAnswer, handleUpdate: updateAnswer, handleUpdateAll: updateAllAnswers };
 
     return (
         <div className='question-wrapper'>
@@ -101,7 +112,7 @@ const QuestionCreator = ({ handleUpdate, handleDuplicate, handleRemove, ...props
                 </div>
             </div>
 
-            <QuestionAnswer type={type} answers={answers} handleAdd={addAnswer} handleRemove={removeAnswer} handleUpdate={updateAnswer} />
+            <QuestionAnswer {...questionAnswerProps} />
 
             <div className='question-actions'>
                 <Button onClick={saveQuestion}> Salvar </Button>

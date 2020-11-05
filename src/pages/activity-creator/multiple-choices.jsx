@@ -18,47 +18,36 @@ const BLANK_CHOICE = {
     setAsAnswer: void null
 };
 
-const MultipleChoices = (props) => {
+const MultipleChoices = ({answers, handleAdd, handleRemove, handleUpdate}) => {
 
-    const { answers } = props;
-    const [choicesArr, updateChoicesArr] = React.useState((answers || [Object.assign({}, BLANK_CHOICE)]));
+    React.useEffect(() => {
+        if(answers.length <= 0) {
+            handleAdd(BLANK_CHOICE)
+        }
+    }, [answers]);
 
-    const handleRemove = (choice) => {
-        console.log("Remove this choice: ", choice);
-        updateChoicesArr( oldState => {
-            const newState = _filter(oldState, ({id}) => id != choice.id);
-            console.log('New state: ', newState);
-            return newState;
-        });
-    };
-    
-    const handleAdd = () => { 
-        updateChoicesArr(oldState => [
-            Object.assign(
-                {}, 
-                {...BLANK_CHOICE, id: uuidV4()}
-            )
-        ].concat(oldState)); 
-        console.log("Add blank choice: ", choicesArr);
-    };
+    const addChoice = () => handleAdd(BLANK_CHOICE);
+    const removeChoice = (choice) => handleRemove(choice);
     
     const setAsAnswer = (answer) => {
-        updateChoicesArr(oldState => {
-            return _map(oldState, (choice) => {
-                if (choice.id === answer.id) choice.isAnswer = !choice.isAnswer;
-                return choice;
-            });
-        });
+        answer.isAnswer = !answer.isAnswer;
+        handleUpdate(answer);
     };
 
-    const mapedChoices = _map(choicesArr, (choice, index) => {
+    const updateText = (newText, choice) => {
+        choice.text = newText;
+        handleUpdate(choice)
+    };
+
+    const mapedChoices = _map(answers, (choice, index) => {
         const choiceProps = {
             ...choice,
             key: choice.id,
-            isLast: (choicesArr.length - (index + 1)) == 0,
-            handleAdd, 
-            handleRemove: () => handleRemove(choice), 
-            setAsAnswer: () => setAsAnswer(choice)
+            isLast: (answers.length - (index + 1)) == 0,
+            addChoice,
+            handleRemove: () => removeChoice(choice), 
+            setAsAnswer: () => setAsAnswer(choice),
+            updateChoiceContent: (newText) => updateText(newText, choice)
         };
 
         return <Choice {...choiceProps} />;
