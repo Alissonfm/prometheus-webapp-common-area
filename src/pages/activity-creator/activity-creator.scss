@@ -106,7 +106,7 @@
             }
         }
 
-    .right-choices-wrapper {
+    .right-choices-wrapper, .true-or-false-wrapper {
         padding-top: 12.5px;
         padding-bottom: 25px;
         border-top: 1px solid $lightBorder;
@@ -128,6 +128,7 @@
             }
         }
     }
+
 }
 
 .activity-creator-small-dialog-content {

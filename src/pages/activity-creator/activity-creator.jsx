@@ -140,6 +140,10 @@ const ActivityCreator = (props) => {
                         <h4>{title}<IconButton aria-label='Editar título' onClick={openSmallDialog}><CreateIcon /></IconButton></h4>
                     </div>
                     <div>
+                        <small>Data de publicação: </small>
+                        <h4>{deadline}<IconButton aria-label='Editar data' onClick={openSmallDialog}><CreateIcon /></IconButton></h4>
+                    </div>
+                    <div>
                         <small>Data limite: </small>
                         <h4>{deadline}<IconButton aria-label='Editar data' onClick={openSmallDialog}><CreateIcon /></IconButton></h4>
                     </div>

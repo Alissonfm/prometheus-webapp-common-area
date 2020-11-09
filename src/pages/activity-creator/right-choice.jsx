@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { v4 as uuidV4 } from 'uuid';
+import _find from 'lodash/find';
 import _map from 'lodash/map';
 import _filter from 'lodash/filter';
 
@@ -8,6 +10,7 @@ import Choice from './choice';
 import './activity-creator.scss';
 
 const BLANK_CHOICE = {
+    id: uuidV4(),
     text: '',
     isAnswer: false,
     handleAdd: void null, 
@@ -15,12 +18,10 @@ const BLANK_CHOICE = {
     setAsAnswer: void null
 };
 
-const RightChoice = ({answers, handleAdd, handleRemove, handleUpdate, handleUpdateAll}) => {
-
-    console.log("Right choice inital props: ", answers);
+const MultipleChoices = ({answers, handleAdd, handleRemove, handleUpdate}) => {
 
     React.useEffect(() => {
-        if(answers.length <= 0 ) { 
+        if(answers.length <= 0) {
             handleAdd(BLANK_CHOICE)
         }
     }, [answers]);
@@ -28,36 +29,32 @@ const RightChoice = ({answers, handleAdd, handleRemove, handleUpdate, handleUpda
     const addChoice = () => handleAdd(BLANK_CHOICE);
     const removeChoice = (choice) => handleRemove(choice);
     
-    const setAsAnswer = (target) => {        
-        const updatedAnswers = _map(answers, (answer) => {
-            answer.id === target.id ? answer.isAnswer = !answer.isAnswer : answer.isAnswer = false;
-            return answer;
-        });
-        handleUpdateAll(updatedAnswers);
+    const setAsAnswer = (answer) => {
+        answer.isAnswer = !answer.isAnswer;
+        handleUpdate(answer);
     };
 
-    const updateChoiceContent = (answer, newText) => {
-        console.log("updateChoiceContent: ", answer);
-        console.log("updateChoiceContent: ", newText);
-        answer.text = newText;
-        handleUpdate(answer);
-    }
+    const updateText = (newText, choice) => {
+        choice.text = newText;
+        handleUpdate(choice)
+    };
 
     const mapedChoices = _map(answers, (choice, index) => {
         const choiceProps = {
             ...choice,
             key: choice.id,
             isLast: (answers.length - (index + 1)) == 0,
-            addChoice, 
+            addChoice,
             handleRemove: () => removeChoice(choice), 
             setAsAnswer: () => setAsAnswer(choice),
-            updateChoiceContent: (text) => updateChoiceContent(choice, text),
+            updateChoiceContent: (newText) => updateText(newText, choice)
         };
 
         return <Choice {...choiceProps} />;
     });
 
     return <div className='right-choices-wrapper'><h4>Alternativas:</h4>{mapedChoices}</div>;
+
 }
 
-export default RightChoice;
+export default MultipleChoices;

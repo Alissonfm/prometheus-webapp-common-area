@@ -7,16 +7,11 @@ import _map from 'lodash/map';
 
 import { Button, TextField, MenuItem } from '@material-ui/core';
 
-import MultipleChoices from './multiple-choices';
 import RightChoice from './right-choice';
+import TrueOrFalse from './true-or-false';
 
 import './activity-creator.scss';
 
-const TrueOfFalse = () => {
-    return (
-        <div>TrueOfFalse</div>
-    )
-};
 const Relational = () => {
     return (
         <div>Relational</div>
@@ -24,10 +19,9 @@ const Relational = () => {
 };
 
 const QUESTION_TYPE = {
-    multipleChoices: { value: 'multipleChoices', name: 'Múltipla escolha', component: MultipleChoices },
     open: { value: 'open', name: 'Questão aberta', component: () => null },
     rightChoice: { value: 'rightChoice', name: 'Marcar a alternativa correta', component: RightChoice },
-    trueorfalse: { value: 'trueorfalse', name: 'Marcar como verdadeiro ou falso', component: TrueOfFalse },
+    trueorfalse: { value: 'trueorfalse', name: 'Marcar como verdadeiro ou falso', component: TrueOrFalse },
     relational: { value: 'relational', name: 'Relacione as colunas da esquerda e direita', component: Relational },
 };
 

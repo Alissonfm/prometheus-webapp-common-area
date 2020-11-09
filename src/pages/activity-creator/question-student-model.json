@@ -1,0 +1,16 @@
+{
+    "title": "",
+    "deadline": "",
+    "dipatch": "",
+    "grade": "",
+    "questions": [
+        {
+            "title": "",
+            "type": "",
+            "attempts": 0,
+            "answers": [
+                { "isCorrect": false, "answer": "" }
+            ]
+        }
+    ]
+}
