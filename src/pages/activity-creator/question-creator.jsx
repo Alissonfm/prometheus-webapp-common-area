@@ -9,14 +9,9 @@ import { Button, TextField, MenuItem } from '@material-ui/core';
 
 import RightChoice from './right-choice';
 import TrueOrFalse from './true-or-false';
+import Relational from './relational';
 
 import './activity-creator.scss';
-
-const Relational = () => {
-    return (
-        <div>Relational</div>
-    )
-};
 
 const QUESTION_TYPE = {
     open: { value: 'open', name: 'Questão aberta', component: () => null },

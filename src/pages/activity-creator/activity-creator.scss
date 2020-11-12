@@ -106,7 +106,7 @@
             }
         }
 
-    .right-choices-wrapper, .true-or-false-wrapper {
+    .right-choices-wrapper, .true-or-false-wrapper, .relational-wrapper {
         padding-top: 12.5px;
         padding-bottom: 25px;
         border-top: 1px solid $lightBorder;
@@ -125,6 +125,35 @@
             > button {
                 margin-left: 10px;
                 color: $primaryColorRGB;
+            }
+        }
+    }
+
+    .relational-wrapper {
+        .left-cell {
+            vertical-align: middle;
+            position: relative;
+            > span {
+                @include fontSize(26);
+                color: $primaryColorRGB;
+                font-weight: 700;
+                padding-right: 10px;
+                display: inline-block;
+                transform: translateY(25%);
+                
+                &::after {
+                    content: ')';
+                }
+            }
+        }
+
+        .right-cell {
+            .MuiFormControl-root:first-child {
+                padding-right: 10px;
+            }
+
+            .MuiSelect-root {
+                min-width: 55px;
             }
         }
     }
