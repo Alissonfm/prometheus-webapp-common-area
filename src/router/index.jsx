@@ -1,16 +1,14 @@
-import _map from 'lodash/map';
-import * as React from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Profile, Requests, Activities, ActivityCreator } from '../pages';
+import { v4 as uuidv4 } from 'uuid';
+import _map from 'lodash/map';
+import { Activities, ActivityCreator, Dashboard, Profile, Launcher, Requests } from '../pages';
 
 const ROUTES = [
   {
-    path: '/student',
-    Component: () => (<div>Student</div>),
-  },
-  {
-    path: '/educator',
-    Component: () => (<div>Educator</div>),
+    path: '/',
+    exact: true,
+    Component: Dashboard,
   },
   {
     path: '/profile',
@@ -28,15 +26,18 @@ const ROUTES = [
     path: '/new-activity',
     Component: ActivityCreator,
   },
+  {
+    path: '/launcher',
+    Component: Launcher,
+  }
 ];
 
 const buildRouterTree = (routes, props) => {
-  return _map(routes, ({ path, Component }) => <Route key={`${Math.random()}-${path}`} path={path}><Component {...props} /></Route>);
+  return _map(routes, ({ path, exact, Component }) => <Route key={uuidv4()} path={path} exact={exact}><Component {...props} /></Route>);
 }
 
 const RouterTree = (props) => (
   <Switch>
-    <Route exact path="/"><div>Dashboard</div></Route>
     {buildRouterTree(ROUTES, props)}
   </Switch>
 );

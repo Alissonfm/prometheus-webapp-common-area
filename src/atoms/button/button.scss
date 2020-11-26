@@ -40,6 +40,21 @@
     }
   }
 
+  &.bg--light {
+    background-color: white;
+    box-shadow: 0px 0px 30px -15px $fontLight;
+
+    .MuiButton-label {
+      color: $primaryColor;
+      font-weight: 700;
+    }
+
+    &:hover {
+      background-color: white;
+      opacity: 0.75;
+    }
+  }
+
 }
 
 .clear--underscore {

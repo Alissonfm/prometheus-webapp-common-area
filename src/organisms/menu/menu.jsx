@@ -9,8 +9,9 @@ import './menu.scss';
 const MENU_TREE = [
   { to: '/', counter: 0, matchExact: true, label: <img style={{ maxWidth: '40px' }} src="../../assets/img/logo-icon-white.png" alt="prometheus-logo" /> },
   { to: '/profile', counter: 0, label: 'Perfil' },
-  { to: '/requests', counter: 4, label: 'Solicitações' },
+  { to: '/requests', counter: 0, label: 'Solicitações' },
   { to: '/activities', counter: 0, label: 'Atividades' },
+  { to: '/launcher', counter: 0, label: 'Lançamentos' },
 ];
 
 const MenuLink = ({ to, matchExact, counter, label }) => {

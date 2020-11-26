@@ -1,0 +1,12 @@
+@import '../../../../assets/css/extendables';
+// @import '../../../../assets/css/theme';
+
+.graphs-widget-wrapper {
+    @extend %flex-h-start;
+    padding: 0 25px 25px 25px;
+
+    .graph-wrapper {
+        max-width: 350px;
+        margin-right: 25px;
+    }
+}

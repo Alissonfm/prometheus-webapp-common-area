@@ -15,7 +15,8 @@ $drawerSizeLG: 400px;
     @extend %flex-h-between;
     position: relative;
     width: 100%;
-    padding: 10px 0;
+    min-height: 60px;
+    padding: 15px 0;
 
     .page-title {
         @include fontSize(42);
@@ -27,6 +28,12 @@ $drawerSizeLG: 400px;
         margin-right: 15px;
       }
     }
+  }
+
+  .page-content {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 120px);
   }
 }
 

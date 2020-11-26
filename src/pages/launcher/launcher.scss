@@ -1,0 +1,201 @@
+@import '../../assets/css/theme';
+@import '../../assets/css/extendables';
+@import '../../assets/css/mixins';
+
+
+.launcher {
+
+    .page-header {
+        .launcher-toggler {
+            @extend %bs-spread-shadow;
+
+            > * {
+                transition: all 0.5s;
+                background-color: $primaryColor;
+                color: white;
+                font-weight: 600;
+                border: none;
+
+                &[data-selected="presence"]:first-child {
+                    background-color: $secondaryColor;
+                }
+                &[data-selected="points"]:last-child {
+                    background-color: $secondaryColor;
+                }
+            }
+        }
+    }
+
+    .page-content {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+
+        > .level {
+            right: 0;
+            transition: all 0.5s;
+            z-index: 0;
+
+            &:last-child {
+                right: -100%;
+                top: -100%;
+            }
+
+            > * {
+                width: 100%;
+                height: 100%;
+            }
+
+        }
+
+        &[data-current-launcher="points"]  {
+            > .level {
+                right: 100%;
+                
+                &:last-child {
+                    right: 0;
+                }
+            }
+        }
+        .level {
+            position: relative;
+            width: 100%;
+            height: 100%;
+
+            .level-header {
+                @extend %flex-h-between;
+                align-content: center;
+                height: 75px;
+                padding-bottom: 25px ;
+                width: 100%;
+
+                .level-path {
+                    @include fontSize(16);
+                    @extend %flex-h-start;
+                    align-content: flex-start;
+                    background-color: $lightBackgroundAlt;
+                    padding: 15px;
+                    border-radius: 6px;
+
+                    * {
+                        height: 100%;
+                        display: inline-block;
+                    }
+
+                    > span {
+                        padding-right: 10px;
+
+                        &::after {
+                            content: '/';
+                            padding-left: 10px;
+                        }
+
+                        &:last-child::after {
+                            display: none;
+                        }
+                    }
+                }
+
+                > button {
+                    transition: opacity 0.35s, transform 0.5s;
+                    float: right;
+                    transform: scale(0);
+                    opacity: 0;
+
+                    .MuiIcon-root {
+                        margin-right: 10px
+                    }
+
+                    &[data-show-button=true] {
+                        transform: scale(0.75);
+                        opacity: 1;
+                    }
+                }
+            }
+
+            .level-content {
+                transition: opacity 0.75s, transform 0.75, display 1.25s;
+                padding: 25px;
+                width: 100%;
+                height: 100%;
+                position: relative;
+                z-index: 2;
+                
+                .content-grid {
+                    @extend %flex-h-start;
+                    align-content: flex-start;
+                    align-items: stretch;
+                    flex-wrap: wrap;
+                    width: 100%;
+                    height: calc(100% - 100px);
+                    position: relative;
+                    overflow-y: auto;
+
+                    .card-wrapper {
+                        padding: 25px;
+                        width: 25%;
+                        min-width: 320px;
+
+                        .card {
+                            width: 100%;
+                            margin: 25px;
+
+                            > * {
+                                height: 100%;
+                                width: 100%;
+
+                                > * {
+                                    height: 100%;
+                                    width: 100%;
+                                }
+                            }
+            
+                            &:nth-child(5) {
+                                margin-right: initial;
+                            }
+            
+                            .subject-grid {
+                                @extend %flex-h-start;
+                                align-content: flex-start;
+                                flex-wrap: wrap;
+                                padding-top: 25px;
+                                
+                                > * {
+                                    cursor: pointer;
+                                    margin: 5px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .sub-level {
+                transition: all 0.75s;
+                display: block;
+                position: absolute;
+                z-index: 1;
+                bottom: 0;
+                left: 0;
+                transform: scale(0.75);
+                opacity: 0;
+                height: 100%;
+                width: 100%;
+            }
+
+            &[data-show-sublevel=true] {
+                > .level-content {
+                    transform: scale(1.25);
+                    opacity: 0;
+                    display: none;
+                }
+
+                > .sub-level {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}

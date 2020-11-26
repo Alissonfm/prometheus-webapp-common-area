@@ -1,0 +1,93 @@
+@import '../../../../assets/css/theme';
+@import '../../../../assets/css/extendables';
+@import '../../../../assets/css/mixins';
+
+.welcome-wrap {
+    @extend %flex-h-start;
+    align-items: center;
+    height: inherit;
+    max-height: 100%;
+    width: 100%;
+
+    > * {
+        width: 50%;
+        height: 100%;
+    }
+
+    .left-side {
+        > h2 {
+            @include fontSize(42);
+            padding-bottom: 10px;
+        }
+
+        > h4 {
+            @include fontSize(14);
+            font-weight: 500;
+            color: $content;
+            padding-bottom: 25px;
+
+            > * {
+                line-height: initial;
+                vertical-align: middle;
+
+                &:first-child {
+                    margin-right: 5px;
+                }
+            }
+        }
+
+        .welcome-actions {
+            padding-top: 25px;
+
+            > * {
+                text-transform: initial;
+
+                &:first-child {
+                    margin-right: 15px;
+                    margin-bottom: 15px;
+                }
+
+                svg {
+                    margin-right: 15px;
+                }
+            }
+        }
+    }
+
+    .right-side {
+        position: relative;
+
+        > img {
+            position: relative;
+            display: block;
+            max-height: 250px;
+            height: 250px;
+            width: auto;
+            margin: 0 auto;
+            z-index: 2;
+        }
+
+        &::before, &::after {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 53%;
+            height: 65%;
+            background-color: transparent;
+            z-index: 1;
+        }
+
+        &::before {
+            background-image: url(../../../../assets/img/orange-circle.svg);
+            background-size: 9.5%;
+            top: 0;
+            left: 12.5%;
+        }
+        &::after {
+            background-image: url(../../../../assets/img/purple-circle.svg);
+            background-size: 9.5%;
+            bottom: 0;
+            right: 12.5%;
+        }
+    }
+}

@@ -4,8 +4,12 @@
 // Font-size
 // Mixin funciton, but same as REM css unit logic
 //
-@mixin fontSize($target) {
-    font-size: calc((#{$target} / #{$f-base}) * 1rem);
+@mixin fontSize($target, $important: 0) {
+    @if $important > 0 { 
+        font-size: calc((#{$target} / #{$f-base}) * 1rem) !important;
+    } @else {
+        font-size: calc((#{$target} / #{$f-base}) * 1rem);
+    }
 }
 
 //

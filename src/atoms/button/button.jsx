@@ -17,6 +17,7 @@ const COLORS = {
   'success': 'bg--success',
   'warn': 'bg--warn',
   'cancel': 'bg--cancel',
+  'light': 'bg--light',
 };
 
 const ButtonAsLink = ({ to, children, ...buttonProps }) => <Link className='clear--underscore' to={to}><MuiButton {...buttonProps}>{children}</MuiButton></Link>;

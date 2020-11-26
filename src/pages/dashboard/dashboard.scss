@@ -1,0 +1,31 @@
+@import  '../../assets/css/theme';
+@import  '../../assets/css/extendables';
+
+.dashboard-wrapper {
+    padding-top: 50px;
+
+    .teacher {
+        .dashboard-widget {
+            margin-bottom: 25px;
+            // height: 275px;
+            // max-height: 275px;
+        }
+    }
+
+    .widget-grid {
+        @extend %flex-h-between;
+        flex-wrap: wrap;
+
+        .widget--small {
+            width: 30%;
+        }
+        
+        .widget--medium {
+            width: 60%;
+        }
+
+        .widget--full {
+            width: 100%;
+        }
+    }
+}

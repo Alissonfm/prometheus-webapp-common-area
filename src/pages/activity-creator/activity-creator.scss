@@ -130,20 +130,41 @@
     }
 
     .relational-wrapper {
+
+        .lines-to-display {
+            @extend %flex-h-start;
+            flex-wrap: wrap;
+            padding: 25px 0 10px 0;
+            margin-bottom: 10px;
+
+            > .MuiFormControl-root {
+                min-width: 100%;
+            }
+        }
+
+        .left-cell, .right-cell {
+            > .MuiFormControl-root {
+                min-width: 100%;
+            }
+        }
+
         .left-cell {
             vertical-align: middle;
             position: relative;
-            > span {
+            padding-left: 40px;
+
+            &::before {
                 @include fontSize(26);
+                @extend %flex-v-center;
+                content: attr(data-indicator);
                 color: $primaryColorRGB;
                 font-weight: 700;
                 padding-right: 10px;
-                display: inline-block;
-                transform: translateY(25%);
-                
-                &::after {
-                    content: ')';
-                }
+                position: absolute;
+                height: 100%;
+                width: auto;
+                top: 0;
+                left: 0;
             }
         }
 

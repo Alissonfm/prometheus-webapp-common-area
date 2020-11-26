@@ -1,4 +1,5 @@
 @import '../../assets/css/theme';
+@import '../../assets/css/mixins';
 
 .widget {
   position: relative;
@@ -6,11 +7,22 @@
   margin-bottom: 10px;
   width: 100%;
 
+  &.transparent {
+    background-color: transparent !important;
+  }
+
   .widget-title {
+    @include fontSize(22);
     margin: initial;
-    font-size: 22px;
     font-weight: 700;
     color: $title;
     padding-bottom: 10px;
+
+    span {
+      @include fontSize(32);
+      color: $primaryColorRGB;
+      margin-right: 15px;
+      vertical-align: bottom;
+    }
   }
 }

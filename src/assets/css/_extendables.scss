@@ -15,14 +15,17 @@
 %flex-h-start {
     @extend %flex-row;
     justify-content: start;
+    align-content: flex-start;
 }
 %flex-h-center {
     @extend %flex-row;
     justify-content: center;
+    align-content: center;
 }
 %flex-h-end {
     @extend %flex-row;
     justify-content: end;
+    align-content: flex-end;
 }
 %flex-h-evenly {
     @extend %flex-row;
@@ -36,14 +39,17 @@
 %flex-v-start {
     @extend %flex-column;
     justify-content: start;
+    align-content: flex-start;
 }
 %flex-v-center {
     @extend %flex-column;
     justify-content: center;
+    align-content: center;
 }
 %flex-v-end {
     @extend %flex-column;
     justify-content: end;
+    align-content: flex-end;
 }
 %flex-v-evenly {
     @extend %flex-column;
@@ -84,6 +90,7 @@
 %bs-spread-shadow {
     box-shadow: 0 0 16px 1px rgba(0, 0, 0, 0.06);
 }
+
 
 //
 // shapes effects

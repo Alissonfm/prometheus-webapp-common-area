@@ -65,20 +65,19 @@ const Activities = (props) => {
 
     return (
         <div className="activities-page page">
+
             <div className='page-header'>
-                
-                <h2 className="page-title">
-                    Atividades
+                <h2 className="page-title">Atividades</h2>
+                <div className='page-header-actions'>
                     <Button to='/new-activity' variant='link'><Icon>add</Icon> Nova atividade</Button>
-                </h2>
-
-                <TextField className='activity-filter' label='Filtrar por: ' value='' select variant='outlined'>
-                    <MenuItem value='status'>Status</MenuItem>
-                    <MenuItem value='type'>Tipo</MenuItem>
-                </TextField>
-
+                    <TextField className='activity-filter' label='Filtrar por: ' value='' select variant='outlined'>
+                        <MenuItem value='status'>Status</MenuItem>
+                        <MenuItem value='type'>Tipo</MenuItem>
+                    </TextField>
+                </div>
             </div>
-            <div className='page-body'>
+
+            <div className='page-content'>
                 <TableContainer>
                         <Table className="activities-table" aria-label="Lista de solicitações">
                             <TableHead className="table-head">

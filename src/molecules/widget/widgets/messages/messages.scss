@@ -1,0 +1,40 @@
+@import '../../../../assets/css/theme';
+@import '../../../../assets/css/mixins';
+
+.messages-wrapper {
+    position: relative;
+    padding: 25px;
+
+    > * {
+        display: block;
+        width: 100%;
+        margin-top: 7.5px;
+        margin-bottom: 7.5px;
+        text-align: center;
+    }
+
+    .icon {
+        span { 
+            @include fontSize(48);
+            color: $primaryColorRGB;
+        }
+    }
+
+    h4 {
+        padding: 15px 0;
+        color: $fontDark;
+    }
+
+    .messages-count {
+        font-weight: 600;
+        padding: 15px 0;
+        color: $secondaryColorRGB;
+        background-color: $lightBackgroundAlt;
+    }
+
+    .act-button {
+        @include fontSize(12);
+        color: $fontLight;
+        text-transform: initial !important;
+    }
+}

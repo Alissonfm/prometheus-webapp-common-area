@@ -3,27 +3,14 @@
 @import '../../assets/css/theme';
 
 .activities-page {
-    padding-top: 50px;
 
-    .page-header {
-        @extend %flex-h-between;
-        padding: 15px 0;
-
-        .page-title {
-            @include fontSize(42);
-            display: inline-block;
-
-            > * {
-                margin-left: 25px;
-                text-decoration: none !important;
-            }
-        }
-
-        .activity-filter {
-            min-width: 150px;
+    .page-header-actions {
+        > * {
+            &:first-child { margin-right: 15px; }
         }
     }
-    .page-body {
+
+    .page-content {
         padding-top: 30px;
 
         .activities-table {
