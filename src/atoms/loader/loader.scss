@@ -1,0 +1,31 @@
+@import '../../assets/css/theme';
+@import '../../assets/css/extendables';
+@import '../../assets/css/mixins';
+
+.loader-wrapper {
+    @extend %flex-v-center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    background-color: rgba(255,255,255, 0.35);
+    backdrop-filter: grayscale(0.75);
+    // background-color: url(../../assets/img/acrylic.png);
+
+    .loader-spinner {
+        transform: scale(2.5);
+
+        * {
+            color: $primaryColor;
+        }
+    }
+
+    .loader-text {
+        @include fontSize(24);
+        padding-top: 25px;
+        font-weight: 700;
+        color: $primaryColor;
+    }
+}

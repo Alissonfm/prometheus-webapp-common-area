@@ -33,8 +33,8 @@
         overflow: hidden;
 
         > .level {
-            right: 0;
             transition: all 0.5s;
+            right: 0;
             z-index: 0;
 
             &:last-child {
@@ -46,7 +46,6 @@
                 width: 100%;
                 height: 100%;
             }
-
         }
 
         &[data-current-launcher="points"]  {
@@ -58,6 +57,7 @@
                 }
             }
         }
+
         .level {
             position: relative;
             width: 100%;
@@ -66,8 +66,8 @@
             .level-header {
                 @extend %flex-h-between;
                 align-content: center;
-                height: 75px;
-                padding-bottom: 25px ;
+                height: 100px;
+                padding: 25px;
                 width: 100%;
 
                 .level-path {
@@ -115,31 +115,135 @@
             }
 
             .level-content {
-                transition: opacity 0.75s, transform 0.75, display 1.25s;
-                padding: 25px;
                 width: 100%;
                 height: 100%;
                 position: relative;
                 z-index: 2;
-                
+                opacity: 1;
+
+                &.visible {
+                    animation: backLevelEffect 1 0.5s;
+                }
+
+                &.hidde {
+                    animation: openLevelEffect 1 0.35s;
+                    transform: scale(0);
+                }
+            
                 .content-grid {
                     @extend %flex-h-start;
                     align-content: flex-start;
                     align-items: stretch;
                     flex-wrap: wrap;
-                    width: 100%;
+                    width: calc(100% + 25px);
                     height: calc(100% - 100px);
                     position: relative;
                     overflow-y: auto;
+                    padding: 0 25px;
+                    margin-right: -12.5px;
+                    margin-left: -12.5px;
 
                     .card-wrapper {
-                        padding: 25px;
-                        width: 25%;
-                        min-width: 320px;
+                        padding: 12.5px;
+                        width: calc(25% - 25px);
+                        min-width: 280px;
+
+                        &:nth-child(2n+1) {
+                            .card { 
+                                // border-color: $waitingColor;
+                                // box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+                                // box-shadow: 0px 3px 1px -2px $waitingColor, 0px 2px 2px 0px $waitingColor, 0px 1px 5px 0px $waitingColor;
+                                
+                                h3 {
+                                    color: $waitingColor;
+                                }
+                                
+                                &:hover {
+                                    box-shadow: 0px 20px 35px -15px $waitingColor;
+                                }
+                            }
+                        }
+                        &:nth-child(2n) {
+                            .card {
+                                // border-color: $primaryColor;
+                                // box-shadow: 0px 3px 1px -2px $primaryColor, 0px 2px 2px 0px $primaryColor, 0px 1px 5px 0px $primaryColor;
+                                                                
+                                h3 {
+                                    color: $primaryColor;
+                                }
+                            
+                                &:hover {
+                                    box-shadow: 0px 20px 35px -15px $primaryColor;
+                                }
+                            }
+                        }
+
+                        &:nth-child(3n) {
+                            .card {
+                                // border-color: $successColor;
+                                // box-shadow: 0px 3px 1px -2px $successColor, 0px 2px 2px 0px $successColor, 0px 1px 5px 0px $successColor;
+
+                                h3 {
+                                    color: $successColor;
+                                }
+                            
+                                &:hover {
+                                    box-shadow: 0px 20px 35px -15px $successColor;
+                                }
+                            }
+                        }
+                        &:nth-child(4n) {
+                            .card {
+                                // border-color: #fcdb00;
+                                // box-shadow: 0px 3px 1px -2px #fcdb00, 0px 2px 2px 0px #fcdb00, 0px 1px 5px 0px #fcdb00;
+
+                                h3 {
+                                    color:  #fcdb00;
+                                }
+                            
+                                &:hover {
+                                    box-shadow: 0px 20px 35px -15px #fcdb00;
+                                }
+                            }
+                        }
+                        &:nth-child(5n) {
+                            .card {
+                                // border-color: #fd0100;
+                                // box-shadow: 0px 3px 1px -2px #fd0100, 0px 2px 2px 0px #fd0100, 0px 1px 5px 0px #fd0100;
+
+                                h3 {
+                                    color: #fd0100;
+                                }
+                            
+                                &:hover {
+                                    box-shadow: 0px 20px 35px -20px #fd0100;
+                                }
+                            }
+                        }
 
                         .card {
+                            transition: all 0.3s;
                             width: 100%;
-                            margin: 25px;
+                            height: 100%;
+                            position: relative;
+                            // border-width: 2px;
+                            // border-style: solid;
+
+                            .MuiCardContent-root {
+                                padding: initial;
+
+                                h3 { padding: 15px; }
+                            }
+
+
+                            &:hover {
+                                transform: scale(1.05) translateY(-10px);
+                                box-shadow: 0px 15px 20px -5px silver;
+
+                                .MuiCardActionArea-root {
+                                    background-color: white !important;
+                                }
+                            }
 
                             > * {
                                 height: 100%;
@@ -151,15 +255,11 @@
                                 }
                             }
             
-                            &:nth-child(5) {
-                                margin-right: initial;
-                            }
-            
                             .subject-grid {
                                 @extend %flex-h-start;
                                 align-content: flex-start;
                                 flex-wrap: wrap;
-                                padding-top: 25px;
+                                padding: 15px;
                                 
                                 > * {
                                     cursor: pointer;
@@ -172,30 +272,46 @@
             }
 
             .sub-level {
-                transition: all 0.75s;
                 display: block;
                 position: absolute;
                 z-index: 1;
                 bottom: 0;
                 left: 0;
-                transform: scale(0.75);
-                opacity: 0;
                 height: 100%;
                 width: 100%;
-            }
+                animation: openSubLevelEffect 1 0.5s;
 
-            &[data-show-sublevel=true] {
-                > .level-content {
-                    transform: scale(1.25);
-                    opacity: 0;
-                    display: none;
-                }
-
-                > .sub-level {
-                    transform: scale(1);
-                    opacity: 1;
+                &.hidde {
+                    animation: closeSubLevelEffect 1 0.35s;
+                    transform: scale(0);
                 }
             }
         }
     }
+
+    .launcher-table-wrapper {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+}
+
+@keyframes openLevelEffect {
+    from { transform: scale(1); opacity: 1 }
+    to { transform: scale(4); opacity: 0.15 }
+}
+
+@keyframes backLevelEffect {
+    from { transform: scale(1.5); opacity: 0 }
+    to { transform: scale(1); opacity: 1 }
+}
+
+@keyframes openSubLevelEffect {
+    from { transform: scale(0.35); opacity: 0 }
+    to { transform: scale(1); opacity: 1 }
+}
+
+@keyframes closeSubLevelEffect {
+    from { transform: scale(1); opacity: 1 }
+    to { transform: scale(0.5); opacity: 0 }
 }

@@ -1,5 +1,6 @@
-import { Container } from '@material-ui/core';
 import React, { useState } from 'react';
+import { Container } from '@material-ui/core';
+import { Loader } from '../../atoms';
 import { Menu, Sidebar } from '../../organisms';
 import RouterTree from '../../router';
 import './base-page.scss';
@@ -8,27 +9,20 @@ import './base-page.scss';
 const BasePage = (props) => {
 
   const [isSidebarOpened, sidebarToggle] = useState(false);
-  const [dynamicClasses, updateClasses] = useState({ drawer: 'drawer teste', container: 'container' });
-
-  const toggle = () => {
-    sidebarToggle(!isSidebarOpened);
-
-    !isSidebarOpened ?
-      updateClasses({ drawer: 'drawer teste in', container: 'container retreat' }) :
-      updateClasses({ drawer: 'drawer teste', container: 'container' });
-  };
+  const toggle = () => sidebarToggle((previousState) => !previousState);
 
   return (
     <div className="base-page">
       <Menu sidebarToggle={toggle} />
 
-      <div className='base-content'>
+      <div className='base-content' data-show-sidebar={isSidebarOpened}>
 
-        <div className={dynamicClasses.container}>
+        <div className='container'>
+          <Loader />
           <RouterTree />
         </div>
 
-        <div className={dynamicClasses.drawer}>
+        <div className='drawer'>
           <Sidebar toggle={toggle} />
         </div>
 

@@ -41,6 +41,7 @@ $drawerSizeLG: 400px;
   @extend %fullscreen-absolute;
   @extend %flex-v-start;
   flex-wrap: nowrap;
+  overflow: hidden;
 
   * {
     box-sizing: border-box;
@@ -55,15 +56,31 @@ $drawerSizeLG: 400px;
     background-color: $background;
 
     .container {
+      transition: all 0.4s;
       position: relative;
       padding: 0 25px;
-      transition: all 0.4s;
       height: 100%;
       overflow: auto;
       transform: scale(1) perspective(800px) rotateY(0) translateX(0);
       z-index: 1;
+    }
 
-      &.retreat {
+    .drawer {
+      transition: all 0.4s;
+      background-color: white;
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 450px;
+      transform: translateX(100%);
+      z-index: 3;
+      box-shadow: none;
+    }
+
+    &[data-show-sidebar=true] {
+      .container {
         transform: scale(0.7) perspective(800px) rotateY(7.5deg) translateX(7.5%);
         opacity: 0.8;
         filter: grayscale(1);
@@ -79,30 +96,10 @@ $drawerSizeLG: 400px;
           height: 100%;
         }
       }
-    }
 
-    .drawer {
-      transition: all 0.4s;
-      background-color: white;
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 100%;
-      width: 450px;
-      transform: translateX(100%);
-      z-index: 3;
-      box-shadow: none;
-
-      &.in {
+      .drawer {
         transform: translateX(0%);
-        // box-shadow: -60px 0px 22px -60px rgba(0,0,0,0.25);
-        // box-shadow: -75px 0px 30px -45px rgba(0, 0, 0, 0.2);
         box-shadow: -125px 0px 45px -45px rgba(0, 0, 0, 0.12);
-
-        &::before {
-          display: block;
-        }
       }
     }
 
