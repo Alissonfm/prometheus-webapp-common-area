@@ -97,19 +97,25 @@
                     }
                 }
 
-                > button {
-                    transition: opacity 0.35s, transform 0.5s;
-                    float: right;
-                    transform: scale(0);
-                    opacity: 0;
+                .level-actions {
+                    @extend %flex-h-end;
+                    width: auto;
+                    height: 100%;
+                    position: relative;
 
-                    .MuiIcon-root {
-                        margin-right: 10px
-                    }
+                    > button {
+                        transition: opacity 0.35s, transform 0.5s;
+                        transform: scale(0);
+                        opacity: 0;
 
-                    &[data-show-button=true] {
-                        transform: scale(0.75);
-                        opacity: 1;
+                        .MuiIcon-root {
+                            margin-right: 10px
+                        }
+
+                        &[data-show-button=true] {
+                            transform: scale(0.75);
+                            opacity: 1;
+                        }
                     }
                 }
             }
@@ -291,8 +297,108 @@
 
     .launcher-table-wrapper {
         width: 100%;
-        height: 100%;
+        height: calc(100% - 100px);
         position: relative;
+        display: block;
+        padding: 0 25px 25px 25px;
+
+        * {
+            transition: all 0.35s;
+        }
+
+        .MuiTable-root {
+            height: 100%;
+            width: 100%;
+            min-width: 320px;
+            position: relative;
+
+            .MuiTableCell-root {
+                min-width: 150px;
+            }
+        }
+
+        &.presence-table {
+            .MuiTable-root {
+                .MuiTableCell-root {
+                    min-width: 50px;
+                }
+            }
+        }
+
+        .launcher-table-header {
+            
+            .MuiTableCell-stickyHeader {
+                text-align: center;
+                background-color: white;
+                font-weight: 700;
+                color: $primaryColor;
+                border: none;
+                box-shadow: 0px 20px 20px -20px silver;
+
+                &::before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    transform: translateY(50%);
+                    width: 1px;
+                    height: 50%;
+                    background-color: $primaryColor;
+                }
+
+                &:first-child::before {
+                    display: none;
+                }
+
+                h4 {
+                    display: block;
+                    width: 100%;
+                    > small {
+                        display: block;
+                        width: 100%;
+                    }
+                }
+
+                .MuiTableSortLabel-active {
+                    color: $secondaryColor;
+
+                    *  {
+                        color: inherit !important;
+                    }
+                }
+            }
+
+            & + * {
+                position: relative;
+                height: 100%;
+                overflow: auto;
+            }
+        }
+
+        .MuiTableBody-root {
+            .MuiTableCell-root {
+                // border-color: $waitingColor;
+                border-color: $accentColor;
+
+                &:first-child {
+                    position: sticky;
+                    left: 0px;
+                    background-color: white;
+                }
+            }
+
+            &.editing {
+                .MuiTableCell-root {
+                    // border-color: $waitingColor;
+                    border-color: rgba(0,0,0,0.25);
+
+                    .MuiInputBase-root::before {
+                        border-bottom-color: silver;
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -36,10 +36,10 @@ const buildRouterTree = (routes, props) => {
   return _map(routes, ({ path, exact, Component }) => <Route key={uuidv4()} path={path} exact={exact}><Component {...props} /></Route>);
 }
 
-const RouterTree = (props) => (
-  <Switch>
-    {buildRouterTree(ROUTES, props)}
-  </Switch>
+const Component = (props) => (<Switch>
+  {buildRouterTree(ROUTES, props)}
+</Switch>
 );
+const RouterTree = (props) => React.useMemo(() => <Component {...props} />, []);
 
 export default RouterTree;

@@ -1,11 +1,11 @@
 import Avatar from './avatar/avatar';
-import SubjectSelector from './subject-selector/subject-selector';
+import MenuDataContextSelector from './data-context-selector/data-context-selector';
 import Widget from './widget';
 import WidgetActivities from './widget/widgets/widget-activities';
 
 export {
   Avatar,
-  SubjectSelector,
+  MenuDataContextSelector,
   Widget,
   WidgetActivities,
 };

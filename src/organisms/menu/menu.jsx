@@ -3,7 +3,7 @@ import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight';
 import _map from 'lodash/map';
 import * as React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { Avatar, SubjectSelector } from '../../molecules';
+import { Avatar, MenuDataContextSelector } from '../../molecules';
 import './menu.scss';
 
 const MENU_TREE = [
@@ -42,7 +42,7 @@ const Menu = ({ sidebarToggle }) => {
         {_map(MENU_TREE, (menuItemData) => <MenuLink {...menuItemData} />)}
       </MenuList>
       <div className="right-wrapper">
-        <SubjectSelector />
+        <MenuDataContextSelector />
         <Avatar {...avatarProps} />
       </div>
     </div>
