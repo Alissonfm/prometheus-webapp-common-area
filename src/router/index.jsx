@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import _map from 'lodash/map';
-import { Activities, ActivityCreator, Dashboard, Profile, Launcher, Requests } from '../pages';
+import { Activities, ActivityCreator, Dashboard, Profile, Launcher, Learning, Requests } from '../pages';
 
 const ROUTES = [
   {
@@ -29,6 +29,10 @@ const ROUTES = [
   {
     path: '/launcher',
     Component: Launcher,
+  },
+  {
+    path: '/learning',
+    Component: Learning,
   }
 ];
 

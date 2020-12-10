@@ -85,37 +85,14 @@
 
                     > span {
                         padding-right: 10px;
-
-                        &::after {
-                            content: '/';
-                            padding-left: 10px;
-                        }
-
-                        &:last-child::after {
-                            display: none;
-                        }
                     }
                 }
 
-                .level-actions {
-                    @extend %flex-h-end;
-                    width: auto;
-                    height: 100%;
-                    position: relative;
+                > button {
+                    transform: scale(0.75);
 
-                    > button {
-                        transition: opacity 0.35s, transform 0.5s;
-                        transform: scale(0);
-                        opacity: 0;
-
-                        .MuiIcon-root {
-                            margin-right: 10px
-                        }
-
-                        &[data-show-button=true] {
-                            transform: scale(0.75);
-                            opacity: 1;
-                        }
+                    .MuiIcon-root {
+                        margin-right: 10px
                     }
                 }
             }
@@ -126,171 +103,6 @@
                 position: relative;
                 z-index: 2;
                 opacity: 1;
-
-                &.visible {
-                    animation: backLevelEffect 1 0.5s;
-                }
-
-                &.hidde {
-                    animation: openLevelEffect 1 0.35s;
-                    transform: scale(0);
-                }
-            
-                .content-grid {
-                    @extend %flex-h-start;
-                    align-content: flex-start;
-                    align-items: stretch;
-                    flex-wrap: wrap;
-                    width: calc(100% + 25px);
-                    height: calc(100% - 100px);
-                    position: relative;
-                    overflow-y: auto;
-                    padding: 0 25px;
-                    margin-right: -12.5px;
-                    margin-left: -12.5px;
-
-                    .card-wrapper {
-                        padding: 12.5px;
-                        width: calc(25% - 25px);
-                        min-width: 280px;
-
-                        &:nth-child(2n+1) {
-                            .card { 
-                                // border-color: $waitingColor;
-                                // box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
-                                // box-shadow: 0px 3px 1px -2px $waitingColor, 0px 2px 2px 0px $waitingColor, 0px 1px 5px 0px $waitingColor;
-                                
-                                h3 {
-                                    color: $waitingColor;
-                                }
-                                
-                                &:hover {
-                                    box-shadow: 0px 20px 35px -15px $waitingColor;
-                                }
-                            }
-                        }
-                        &:nth-child(2n) {
-                            .card {
-                                // border-color: $primaryColor;
-                                // box-shadow: 0px 3px 1px -2px $primaryColor, 0px 2px 2px 0px $primaryColor, 0px 1px 5px 0px $primaryColor;
-                                                                
-                                h3 {
-                                    color: $primaryColor;
-                                }
-                            
-                                &:hover {
-                                    box-shadow: 0px 20px 35px -15px $primaryColor;
-                                }
-                            }
-                        }
-
-                        &:nth-child(3n) {
-                            .card {
-                                // border-color: $successColor;
-                                // box-shadow: 0px 3px 1px -2px $successColor, 0px 2px 2px 0px $successColor, 0px 1px 5px 0px $successColor;
-
-                                h3 {
-                                    color: $successColor;
-                                }
-                            
-                                &:hover {
-                                    box-shadow: 0px 20px 35px -15px $successColor;
-                                }
-                            }
-                        }
-                        &:nth-child(4n) {
-                            .card {
-                                // border-color: #fcdb00;
-                                // box-shadow: 0px 3px 1px -2px #fcdb00, 0px 2px 2px 0px #fcdb00, 0px 1px 5px 0px #fcdb00;
-
-                                h3 {
-                                    color:  #fcdb00;
-                                }
-                            
-                                &:hover {
-                                    box-shadow: 0px 20px 35px -15px #fcdb00;
-                                }
-                            }
-                        }
-                        &:nth-child(5n) {
-                            .card {
-                                // border-color: #fd0100;
-                                // box-shadow: 0px 3px 1px -2px #fd0100, 0px 2px 2px 0px #fd0100, 0px 1px 5px 0px #fd0100;
-
-                                h3 {
-                                    color: #fd0100;
-                                }
-                            
-                                &:hover {
-                                    box-shadow: 0px 20px 35px -20px #fd0100;
-                                }
-                            }
-                        }
-
-                        .card {
-                            transition: all 0.3s;
-                            width: 100%;
-                            height: 100%;
-                            position: relative;
-                            // border-width: 2px;
-                            // border-style: solid;
-
-                            .MuiCardContent-root {
-                                padding: initial;
-
-                                h3 { padding: 15px; }
-                            }
-
-
-                            &:hover {
-                                transform: scale(1.05) translateY(-10px);
-                                box-shadow: 0px 15px 20px -5px silver;
-
-                                .MuiCardActionArea-root {
-                                    background-color: white !important;
-                                }
-                            }
-
-                            > * {
-                                height: 100%;
-                                width: 100%;
-
-                                > * {
-                                    height: 100%;
-                                    width: 100%;
-                                }
-                            }
-            
-                            .subject-grid {
-                                @extend %flex-h-start;
-                                align-content: flex-start;
-                                flex-wrap: wrap;
-                                padding: 15px;
-                                
-                                > * {
-                                    cursor: pointer;
-                                    margin: 5px;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            .sub-level {
-                display: block;
-                position: absolute;
-                z-index: 1;
-                bottom: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                animation: openSubLevelEffect 1 0.5s;
-
-                &.hidde {
-                    animation: closeSubLevelEffect 1 0.35s;
-                    transform: scale(0);
-                }
             }
         }
     }
@@ -301,6 +113,7 @@
         position: relative;
         display: block;
         padding: 0 25px 25px 25px;
+        box-sizing: border-box;
 
         * {
             transition: all 0.35s;
@@ -318,22 +131,64 @@
         }
 
         &.presence-table {
+            padding-top: 25px;
+
+            &::before {
+                content: attr(data-current-month);
+                position: sticky;
+                display: block;
+                width: 100%;
+                height: 25px;
+                left: 0px;
+                top: -25px;
+                padding-left: 16px;
+                z-index: 4;
+                font-weight: 700;
+                background-color: white;
+                color: $primaryColor;
+                box-sizing: border-box;
+                text-transform: capitalize;
+                text-align: center;
+            }
+
             .MuiTable-root {
                 .MuiTableCell-root {
                     min-width: 50px;
+
+                    .MuiOutlinedInput-input {
+                        padding: 7px;
+                        min-width: 15px;
+                        text-align: center;
+                    }
+
+                    &:first-child {
+                        .MuiOutlinedInput-input {
+                            text-align: left;
+                            width: fit-content;
+                        }
+                    }
                 }
             }
         }
 
         .launcher-table-header {
+
+            .MuiTableCell-root {
+                &:first-child {
+                    position: sticky;
+                    left: 0;
+                    top: 0;
+                }
+            }
             
             .MuiTableCell-stickyHeader {
                 text-align: center;
-                background-color: white;
+                background: none;
                 font-weight: 700;
                 color: $primaryColor;
                 border: none;
                 box-shadow: 0px 20px 20px -20px silver;
+                background: white;
 
                 &::before {
                     content: '';
@@ -345,6 +200,8 @@
                     width: 1px;
                     height: 50%;
                     background-color: $primaryColor;
+                    border-top: none;
+                    border-bottom: none;
                 }
 
                 &:first-child::before {
@@ -385,6 +242,7 @@
                     position: sticky;
                     left: 0px;
                     background-color: white;
+                    z-index: 1;
                 }
             }
 

@@ -12,6 +12,7 @@ const MENU_TREE = [
   { to: '/requests', counter: 0, label: 'Solicitações' },
   { to: '/activities', counter: 0, label: 'Atividades' },
   { to: '/launcher', counter: 0, label: 'Lançamentos' },
+  { to: '/learning', counter: 0, label: 'Aprendizado' }
 ];
 
 const MenuLink = ({ to, matchExact, counter, label }) => {

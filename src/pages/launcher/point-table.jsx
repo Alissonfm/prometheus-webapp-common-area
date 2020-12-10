@@ -63,15 +63,14 @@ const ViewTableBody = ({data}) => {
     return <TableBody>{mapRows(data)}</TableBody>;
 }
 
-const PointTable = ({ content, viewEditContent }) => {
+const PointTable = ({ content, columns, viewEditContent }) => {
 
-    console.log("Launcher Table props: ", content);
-    const { columns, data } = content;
+    console.log("Point Table props: ", content);
 
-    const [state, updateState] = React.useState({data: data, sortBy: 0, direction: 'asc'});
+    const [state, updateState] = React.useState({data: content, sortBy: 0, direction: 'asc'});
 
     //empty state
-    if(!data) return null;
+    if(!content) return null;
 
     const BODY_TYPE = { 'view': ViewTableBody, 'edit': EditTableBody };
 
@@ -88,13 +87,12 @@ const PointTable = ({ content, viewEditContent }) => {
         updateState(({display}) => ({ data: sortedData, sortBy: newIndex, direction: newDirection, display }));
     }
 
-    const sortBy = (newIndex, newDirection) => {(data.sortBy !== newIndex) && sortData(newIndex, newDirection)};
     const BodyComponent = BODY_TYPE[viewEditContent || 'view'];
 
     return (
-        <TableContainer className='launcher-table-wrapper'>
+        <TableContainer className='launcher-table-wrapper point-table'>
             <Table stickyHeader data-columns-count={columns.length}>
-                <CTableHeader sortBy={sortBy} columns={columns} selectedColumn={state.sortBy} direction={state.direction} />
+                <CTableHeader sortBy={sortData} columns={columns} selectedColumn={state.sortBy} direction={state.direction} />
                 <BodyComponent data={state.data} onFieldChange={onFieldChange} />
             </Table>
         </TableContainer>

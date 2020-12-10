@@ -28,7 +28,7 @@ const MenuDataContextSelector = (props) => {
         </Select>
       </FormControl>
       { !!classroom && ( 
-        <FormControl variant="outlined" className="selector-wrapper animate-it">
+        <FormControl variant="outlined" className="selector-wrapper">
           <Select
             labelId="Seletor de Matéria"
             id="subject-selector"

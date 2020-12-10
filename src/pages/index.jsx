@@ -4,6 +4,7 @@ import BasePage from './base-page/base-page';
 import Dashboard from './dashboard/dashboard';
 import Profile from './profile/profile';
 import Launcher from './launcher/launcher';
+import Learning from './learning';
 import Requests from './requests/requests';
 
 export {
@@ -13,5 +14,6 @@ export {
   Dashboard,
   Profile,
   Launcher,
+  Learning,
   Requests
 };

@@ -15,19 +15,16 @@
     justify-content: flex-end;
     flex-wrap: nowrap;
     height: 100%;
-    width: 100%;
+    width: fit-content;
     border: none;
+    position: relative;
 
     &:first-child {
       margin-right: 15px;
     }
 
-    &.animate-it {
-      animation: zoomIn 1 0.5s;
-    }
-
     > .MuiInputBase-root {
-      max-width: 100%;
+      position: relative;
 
       label {
         color: white;
@@ -40,8 +37,8 @@
 
       .MuiSelect-root {
         display: block;
-        width: 100%;
-        min-width: 75px;
+        // width: 100%;
+        min-width: fit-content;
         background-color: rgba(255,255,255,0.15);
 
         &:focus {
@@ -57,10 +54,5 @@
         border: none;
       }
     }
-  }
-
-  @keyframes zoomIn {
-    from { transform: scale(0.5); opacity: 0; margin-right: -100%;}
-    to { transform: scale(1); opacity: 1; margin-right: 0%}
   }
 }

@@ -97,15 +97,14 @@ const ViewTableBody = ({data}) => {
     return <TableBody>{mapRows(data)}</TableBody>;
 }
 
-const PresenceTable = ({ content, viewEditContent }) => {
+const PresenceTable = ({ content, columns, viewEditContent }) => {
 
-    console.log("Launcher Table props: ", content);
-    const { columns, data } = content;
+    console.log("Presence Table props: ", content);
 
-    const [state, updateState] = React.useState({data: data, sortBy: 0, direction: 'asc'});
+    const [state, updateState] = React.useState({data: content, sortBy: 0, direction: 'asc'});
 
     //empty state
-    if(!data) return null;
+    if(!content) return null;
 
     const calendar = calendarBuilder();
     const month = calendar[new Date().getMonth()];
@@ -126,14 +125,12 @@ const PresenceTable = ({ content, viewEditContent }) => {
         updateState(({display}) => ({ data: sortedData, sortBy: newIndex, direction: newDirection, display }));
     }
 
-    const sortBy = (newIndex, newDirection) => {(data.sortBy !== newIndex) && sortData(newIndex, newDirection)};
     const BodyComponent = BODY_TYPE[viewEditContent || 'view'];
 
     return (
-        <TableContainer className='launcher-table-wrapper presence-table'>
-            <h3>{month.name}</h3>
+        <TableContainer className='launcher-table-wrapper presence-table' data-current-month={month.name} >
             <Table stickyHeader data-columns-count={columns.length}>
-                <CTableHeader month={month} sortBy={sortBy} columns={columns} selectedColumn={state.sortBy} direction={state.direction} />
+                <CTableHeader month={month} sortBy={sortData} columns={columns} selectedColumn={state.sortBy} direction={state.direction} />
                 <BodyComponent month={month} data={state.data} onFieldChange={onFieldChange} />
             </Table>
         </TableContainer>
