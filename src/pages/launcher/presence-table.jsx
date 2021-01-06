@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { v4 as uuidv4 } from 'uuid'; 
-import _concat from 'lodash/concat';
 import _map from 'lodash/map';
 import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
@@ -120,7 +119,7 @@ const PresenceTable = ({ content, columns, viewEditContent }) => {
     };
 
     const sortData = (newIndex, newDirection) => {
-        const sortFuncion = () => _sortBy(state.data, [(row) => /^\d/g.test(row[newIndex]) ? new Number(row[newIndex]) : row[newIndex]]);
+        const sortFuncion = () => _sortBy(state.data, [(row) => /^\d/g.test(row[newIndex]) ? Number.parseInt(row[newIndex]) : row[newIndex]]);
         const sortedData = newDirection === 'asc' ? sortFuncion() : _reverse(sortFuncion());
         updateState(({display}) => ({ data: sortedData, sortBy: newIndex, direction: newDirection, display }));
     }

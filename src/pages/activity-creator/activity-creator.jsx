@@ -72,49 +72,37 @@ const ActivityCreator = (props) => {
     const closeSmallDialog = () => updateSmallDialog(oldState => ({ opened: !oldState.opened, data: null }));
 
     const updateFromSmalldialog = (newData) => {
-        // console.log("Data from small dialog: ", newData);
         const { title, deadline, grade } = newData;
         updateActivity((oldState) => ({ ...oldState, title, deadline, grade }));
         closeSmallDialog();
     };
 
     const newQuestion = () => updateActivity(({questions, ...oldState}) => {
-        // console.log("Old state: ", questions);
         const newQuestion = Object.assign({}, {...BLANK_QUESTION, id: uuidV4()});
         const newState = questions ? [newQuestion].concat(questions) : [newQuestion];
-        // console.log("New state: ", newState);
         return { ...oldState, questions: newState };
     });
 
     const updateQuestion = (targetQuestion) => {
-        // console.log("Save terget question: ", targetQuestion);
-        // console.log("Old questions: ", activity.questions);
         updateActivity(({questions, ...activity}) => {
             const newQuestions = _filter(questions, ({id}) => id !== targetQuestion.id);
-            // console.log("NewQuestions: ", newQuestions);
             newQuestions.push(targetQuestion);
             return {...activity, questions: newQuestions};
         });
     };
 
     const duplicateQuestion = (targetQuestion) => {
-        // console.log('Duplicate this question: ', targetQuestion);
         updateActivity(({questions, ...oldState}) => {
             const mirrorQuestion = Object.assign({}, {...targetQuestion, id: uuidV4()});
             const stateRef = questions.indexOf(_find(questions, ({id}) => id === targetQuestion.id));
-            // console.log("Before duplicate slice: ", questions);
             questions.splice(stateRef, 1, targetQuestion, mirrorQuestion);
-            // console.log("After duplicate slice: ", questions);
             return { ...oldState, questions: questions };
-            // const newState = [copiedQuestion].concat(questions);
-            // return { ...oldState, questions: newState };
         });
     };
 
     const removeQuestion = (targetQuestion) => { 
-        // console.log('Remove this question: ', targetQuestion);
         updateActivity(({questions, ...oldState}) => {
-            const newState =  _filter(questions, (question) => question.id != targetQuestion.id);
+            const newState =  _filter(questions, (question) => question.id !== targetQuestion.id);
             return { ...oldState, questions: newState };
         })
     };

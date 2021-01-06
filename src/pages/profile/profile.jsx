@@ -19,21 +19,21 @@ const Profile = (props) => {
         <div className="header-wrapper">
 
           <div className="header-top">
-            <div class="role">
+            <div className="role">
               <h2>Fernando Siqueira</h2>
               <h4> Professor de matemática e Orientador</h4>
             </div>
 
-            <div class="tip">
+            <div className="tip">
               <h4>Localidade: </h4>
               <span><RoomOutlinedIcon className="icon--secondary" /> Uberlândia - MG</span>
             </div>
 
-            <div class="tip">
+            <div className="tip">
               <h4>Redes Sociais: </h4>
               <span>
-                <a href="#" aria-labe="Navegar para Facebook"> <FacebookIcon /> </a>
-                <a href="#" aria-labe="Navegar para LinkedIn"> <LinkedInIcon /> </a>
+                <a href="https://facebook.com" target='_blank' rel="noopener noreferrer" aria-label="Navegar para Facebook"> <FacebookIcon /> </a>
+                <a href="https://linkedin.com" target='_blank' rel="noopener noreferrer" aria-label="Navegar para LinkedIn"> <LinkedInIcon /> </a>
               </span>
             </div>
 
@@ -41,8 +41,8 @@ const Profile = (props) => {
           </div>
 
           <div className="header-bottom">
-            <spam className="citation">"A imaginação é mais importante que a ciência, porque a ciência é limitada, ao passo que a imaginação abrange o mundo inteiro."</spam>
-            <spam className="citation-author"><strong>- Albert Einstein</strong></spam>
+            <span className="citation">"A imaginação é mais importante que a ciência, porque a ciência é limitada, ao passo que a imaginação abrange o mundo inteiro."</span>
+            <span className="citation-author"><strong>- Albert Einstein</strong></span>
           </div>
         </div>
 
@@ -50,7 +50,7 @@ const Profile = (props) => {
 
       <Paper className="profile-wrapper" elevation={0}>
 
-        <div class="about">
+        <div className="about">
           <h3> <PersonOutlineOutlinedIcon className="icon--primary" /> Sobre</h3>
           <div className="about-content">
             <p>

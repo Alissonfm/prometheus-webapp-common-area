@@ -28,7 +28,7 @@ const Welcome = (props) => {
                 </div>
             </div>
             <div className='right-side'>
-                <img src='./assets/img/teacher-welcome2.png' aria-label='Avatar de professores' />
+                <img src='./assets/img/teacher-welcome2.png' aria-label='Avatar de professores' alt='Avatar de boas vindas!' />
             </div>
         </div>
     );

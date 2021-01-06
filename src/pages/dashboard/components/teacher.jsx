@@ -41,7 +41,7 @@ const TeacherDashboard = (props) => {
     const { widgets } = props;
     const widgetsPreState = widgets ? mock_widgets_teacher.concat(widgets) : mock_widgets_teacher;
 
-    const [widgetsState, updateWidgets] = React.useState(widgetsPreState);
+    const [widgetsState] = React.useState(widgetsPreState);
 
     const mappedWidget = _map(widgetsState, ({ size, ...widget}) => { 
         const className = `dashboard-widget ${widgets_sizes[size || 0]}`;

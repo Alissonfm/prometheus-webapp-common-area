@@ -12,16 +12,15 @@ import {
     DialogTitle,
 } from '@material-ui/core';
 
-import { InputFile } from '../../atoms';
 import { Form } from '../../organisms';
 
 import { REQUEST_TYPES } from '../../helpers/system';
 
 import './requests.scss';
 
-const RequestDetailsDialog = ({open, handleClose, requestData}) => {
+const RequestDetailsDialog = ({open, handleClose}) => {
 
-    const newRequest = !!requestData;
+    // const newRequest = !!requestData;
     const RTkeys = _keys(REQUEST_TYPES);
     const RTvalues = _values(REQUEST_TYPES);
 

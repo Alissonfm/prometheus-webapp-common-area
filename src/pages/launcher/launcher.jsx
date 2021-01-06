@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {  v4 as uuidv4 } from 'uuid';
-import _map from 'lodash/map';
 
 import { ButtonGroup, Button as MuiButton, Paper, Icon} from '@material-ui/core';
 import { Button } from '../../atoms';
@@ -88,13 +87,13 @@ const LauncherLevelComponent = (props) => {
     );
 }
 
-const LauncherLevel = (props) => React.useMemo(() => <LauncherLevelComponent {...props} />, []);
+const LauncherLevel = (props) => React.useMemo(() => <LauncherLevelComponent {...props} />, [props]);
 
 const LauncherComponent = (props) => {
     const [launcher, toggleLauncher] = React.useState('presence');
     const onToggleLauncher = () => { toggleLauncher((previous) => (previous === 'presence' ? 'points' : 'presence')); console.log("Switch launcher: ", launcher) };
-    const [isLoading, toggleLoading] = React.useState(true);
-    const onToggleLoading = () => toggleLoading((previousState) => !previousState);
+    // const [isLoading, toggleLoading] = React.useState(true);
+    // const onToggleLoading = () => toggleLoading((previousState) => !previousState);
 
     const [presence, points] = MOCK_DATA;
 
@@ -116,6 +115,6 @@ const LauncherComponent = (props) => {
     );
 }
 
-const Launcher = (props) => React.useMemo(() => <LauncherComponent {...props} />, []);
+const Launcher = (props) => React.useMemo(() => <LauncherComponent {...props} />, [props]);
 
 export default Launcher;

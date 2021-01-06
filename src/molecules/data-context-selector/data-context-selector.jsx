@@ -4,7 +4,7 @@ import './data-context-selector.scss';
 
 const MenuDataContextSelector = (props) => {
 
-  const [context, updateContext] = React.useState({classroom: '', subject: ''});
+  const [context, updateContext] = React.useState({classroom: 1, subject: 1});
   const { classroom, subject } = context;
 
   const updateClassroom = ($event) => { console.log("Evento de troca de turma: ", $event.target); updateContext(() => ({classroom: $event.target.value, subject: ''}) )};

@@ -21,7 +21,7 @@ const TrueOrFalse = (props) => {
         if(answers.length <= 0) {
             handleAdd(BLANK_CHOICE)
         }
-    }, [answers]);
+    }, [answers, handleAdd]);
 
     const addChoice = () => handleAdd(BLANK_CHOICE);
     const removeChoice = (choice) => handleRemove(choice);

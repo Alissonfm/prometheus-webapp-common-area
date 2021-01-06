@@ -82,7 +82,7 @@ const PointTable = ({ content, columns, viewEditContent }) => {
     };
 
     const sortData = (newIndex, newDirection) => {
-        const sortFuncion = () => _sortBy(state.data, [(row) => /^\d/g.test(row[newIndex]) ? new Number(row[newIndex]) : row[newIndex]]);
+        const sortFuncion = () => _sortBy(state.data, [(row) => /^\d/g.test(row[newIndex]) ? Number.parseInt(row[newIndex]) : row[newIndex]]);
         const sortedData = newDirection === 'asc' ? sortFuncion() : _reverse(sortFuncion());
         updateState(({display}) => ({ data: sortedData, sortBy: newIndex, direction: newDirection, display }));
     }

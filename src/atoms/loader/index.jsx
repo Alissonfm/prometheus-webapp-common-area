@@ -8,7 +8,7 @@ const Loader = (props) => {
     console.log("Loader props", props);
     const { isLoading = false, className, text } = props;
 
-    const [loading, toggleLoading] = React.useState(isLoading);
+    const [loading] = React.useState(isLoading);
 
     if (!loading) return null;
 

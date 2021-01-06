@@ -36,7 +36,7 @@ const Button = ({ variant, type, color, className, onClick, children, ...props }
     ...props,
   };
 
-  if(buttonType == 'link') return <ButtonAsLink {...buttonProps}>{children}</ButtonAsLink>;
+  if(buttonType === 'link') return <ButtonAsLink {...buttonProps}>{children}</ButtonAsLink>;
 
   return <MuiButton {...buttonProps}>{children}</MuiButton>
 }

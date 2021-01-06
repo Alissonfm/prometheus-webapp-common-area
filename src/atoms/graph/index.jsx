@@ -65,8 +65,8 @@ const Graph = (props) => {
 
     React.useEffect(() => {
         const canvasElement = document.getElementById(graphId).getContext("2d");
-        const graphElement = new Chart(canvasElement, {...graphConfig});
-    }, []);
+        new Chart(canvasElement, {...graphConfig});
+    }, [graphId, graphConfig]);
 
     return  (
         <Paper className='graph-wrapper' elevation={0}>

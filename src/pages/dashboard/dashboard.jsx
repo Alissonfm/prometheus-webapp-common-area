@@ -11,7 +11,7 @@ const DASHBOARDS = {
 const Dashboard = (props) => {
     console.log("Dashboard props: ", props);
 
-    const [dashboardType, toggleType] = React.useState('teacher');
+    const [dashboardType] = React.useState('teacher');
     const Component = DASHBOARDS[dashboardType];
 
     return (

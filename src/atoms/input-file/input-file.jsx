@@ -2,7 +2,7 @@ import React from 'react';
 
 import _map from 'lodash/map';
 
-import { TextField, Chip, Icon, Avatar } from '@material-ui/core';
+import { TextField, Chip, Icon } from '@material-ui/core';
 
 import { Button } from '../';
 

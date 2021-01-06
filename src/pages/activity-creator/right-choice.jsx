@@ -1,9 +1,7 @@
 import React from 'react';
 
 import { v4 as uuidV4 } from 'uuid';
-import _find from 'lodash/find';
 import _map from 'lodash/map';
-import _filter from 'lodash/filter';
 
 import Choice from './choice';
 
@@ -24,7 +22,7 @@ const MultipleChoices = ({answers, handleAdd, handleRemove, handleUpdate}) => {
         if(answers.length <= 0) {
             handleAdd(BLANK_CHOICE)
         }
-    }, [answers]);
+    }, [answers, handleAdd]);
 
     const addChoice = () => handleAdd(BLANK_CHOICE);
     const removeChoice = (choice) => handleRemove(choice);
@@ -43,7 +41,7 @@ const MultipleChoices = ({answers, handleAdd, handleRemove, handleUpdate}) => {
         const choiceProps = {
             ...choice,
             key: choice.id,
-            isLast: (answers.length - (index + 1)) == 0,
+            isLast: (answers.length - (index + 1)) === 0,
             addChoice,
             handleRemove: () => removeChoice(choice), 
             setAsAnswer: () => setAsAnswer(choice),

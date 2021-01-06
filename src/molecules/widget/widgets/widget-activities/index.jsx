@@ -14,7 +14,7 @@ const Message = ({ id, content, myMessage }) => {
 }
 
 const ActivityConversation = ({ messages }) => {
-  if (!messages || messages.length == 0) return null;
+  if (!messages || messages.length === 0) return null;
 
   const formatMessages = _map(messages, (msg) => <Message {...msg} />)
 

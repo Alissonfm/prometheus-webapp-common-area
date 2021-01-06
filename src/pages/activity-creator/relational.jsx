@@ -29,11 +29,11 @@ const BLANK_ROW = {
         text: '',
         input: '',
     },
-}
+};
 
-{/* <IconButton onClick={setAsAnswer} aria-label={buttonHelpers.setAnswer} title={buttonHelpers.setAnswer}><Icon>{setAsAnswerIcon}</Icon></IconButton>
+/* <IconButton onClick={setAsAnswer} aria-label={buttonHelpers.setAnswer} title={buttonHelpers.setAnswer}><Icon>{setAsAnswerIcon}</Icon></IconButton>
 <IconButton onClick={handleRemove} aria-label={buttonHelpers.remove} title={buttonHelpers.remove}><Icon>delete_outline</Icon></IconButton>
-{ isLast && <IconButton onClick={addChoice} aria-label={buttonHelpers.add} title={buttonHelpers.add}><Icon>add</Icon></IconButton>} */}
+{ isLast && <IconButton onClick={addChoice} aria-label={buttonHelpers.add} title={buttonHelpers.add}><Icon>add</Icon></IconButton>} */
 
 // Trocar a lógica do professor informar a resposta da coluna direita, pois, eles já estão na mesma coluna, construi esse 'embaralhamento' na visão do aluno.
 // Remover a trava lógica da quantidade de colunas, permitir que o professor defina quantas vão aparecer para o alune.
@@ -86,7 +86,7 @@ const Relational = (props) => {
         if(answers.length <= 0) {
             handleAdd(BLANK_ROW)
         }
-    }, [answers]);
+    }, [answers, handleAdd]);
 
 
     const addRow = () => handleAdd(BLANK_ROW);
@@ -106,7 +106,7 @@ const Relational = (props) => {
         const rowProps = {
             ...row,
             key: row.id,
-            isLast: (answers.length - (index + 1)) == 0,
+            isLast: (answers.length - (index + 1)) === 0,
             indicator: INDICATORS[index],
             availableIndicator: INDICATORS.slice(0, answers.length),
             addRow,

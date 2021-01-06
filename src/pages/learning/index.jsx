@@ -12,8 +12,8 @@ const Component = (props) => {
 
     const [vision, toggleVision] = React.useState('view');
     const onToggleVision = () => { toggleVision((currentVision) => (currentVision === 'view' ? 'creator' : 'view')); console.log("Trocar de visão para: ", vision) };
-    const [isLoading, toggleLoading] = React.useState(true);
-    const onToggleLoading = () => toggleLoading((previousState) => !previousState);
+    // const [isLoading, toggleLoading] = React.useState(true);
+    // const onToggleLoading = () => toggleLoading((previousState) => !previousState);
 
     return (
         <div className='page learning'>
@@ -34,6 +34,6 @@ const Component = (props) => {
     );
 }
 
-const Learning = (props) => React.useMemo( () => <Component {...props} />, []);
+const Learning = (props) => React.useMemo( () => <Component {...props} />, [props]);
 
 export default Learning;
