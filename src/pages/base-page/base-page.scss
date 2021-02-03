@@ -5,7 +5,7 @@
 $drawerSizeLG: 400px;
 
 .page {
-  @extend %flex-v-between;
+  @extend %flex-v-start;
   position: relative;
   width: 100%;
   height: 100%;
@@ -16,7 +16,7 @@ $drawerSizeLG: 400px;
     position: relative;
     width: 100%;
     min-height: 60px;
-    padding: 15px 0;
+    padding-bottom: 15px;
 
     .page-title {
         @include fontSize(42);
@@ -35,6 +35,11 @@ $drawerSizeLG: 400px;
     width: 100%;
     height: calc(100% - 120px);
   }
+
+  .MuiButton-root, .MuiInputBase-input {
+    height: 50px;
+    box-sizing: border-box;
+  }
 }
 
 .base-page {
@@ -51,7 +56,7 @@ $drawerSizeLG: 400px;
     display: block;
     position: relative;
     width: 100%;
-    height: calc(100% - 100px);
+    height: calc(100% - 50px);
     overflow: hidden;
     background-color: $background;
 

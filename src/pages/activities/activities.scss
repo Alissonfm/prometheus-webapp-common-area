@@ -3,17 +3,74 @@
 @import '../../assets/css/theme';
 
 .activities-page {
-
     .page-header-actions {
         > * {
             &:first-child { margin-right: 15px; }
         }
+
+        .activity-filter {
+            min-width: 125px;
+        }
     }
 
     .page-content {
-        padding-top: 30px;
+
+        .activity-search {
+            width: 100%;
+            display: block;
+            margin-bottom: 25px;
+
+            > h3 {
+                color: $primaryColor;
+                padding-bottom: 10px;
+                background-color: white;
+                padding: 25px 25px 0px 25px;
+            }
+
+            > form {
+                padding: 25px;
+                width: 100%;
+                background-color: white;
+
+                > * {
+                    display: inline-block;
+                }
+
+                > .MuiFormControl-root {
+                    &:first-child {
+                        padding-right: 15px;
+                    }
+
+                    label {
+                        background-color: white;
+                        z-index: 3;
+                    }
+                }
+
+                .MuiSelect-root {
+                    min-width: 135px;
+                }
+
+                [name="orderBy"] {
+                    color: $fontLight;
+                }
+
+                .form-actions {
+                    float: right;
+
+                    > * { 
+                        transform: scale(0.85);
+                    }
+                }
+            }
+        }
 
         .activities-table {
+
+            [data-hide='true'] {
+                display: none;
+            }
+
             .table-head {
                 th {
                     @include fontSize(12);

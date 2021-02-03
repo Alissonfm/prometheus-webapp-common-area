@@ -10,11 +10,8 @@ const extractFieldNames = (fields) => _reduce(fields, (accumulator, {name, initi
 
 const Form = (props) => {
 
-    const {fields, validateRules, handleSubmit, className, customBody, children} = props;
-    
-    console.log("Form props: ", props);
-    
-    const defaultForm = (props) => <FormElement {...props} fields={fields} className={className} />;
+    const {fields, validateRules, handleSubmit, className, customBody, children, actions} = props;
+    const defaultForm = (props) => <FormElement {...props} fields={fields} className={className} actions={actions} />;
     const customForm = (props) => React.createElement(children, {...props, fields, className });
 
     const formikConfig = {

@@ -37,15 +37,18 @@
         }
 
         .welcome-actions {
-            padding-top: 25px;
+            // padding-top: 25px;
+            width: 100%;
+            display: block;
 
             > * {
                 text-transform: initial;
+                margin: 12.5px 0 12.5px 12.5px; 
 
-                &:first-child {
-                    margin-right: 15px;
-                    margin-bottom: 15px;
-                }
+                // &:first-child {
+                //     margin-right: 15px;
+                //     margin-bottom: 15px;
+                // }
 
                 svg {
                     margin-right: 15px;

@@ -33,7 +33,6 @@ const Menu = ({ sidebarToggle }) => {
     name: 'Augusto Lima',
     description: 'Professor e Coordenador',
     imageSrc: '../../assets/img/user-test.jpg',
-    size: 'big',
     action: <IconButton onClick={sidebarToggle}><FormatAlignRightIcon /></IconButton>
   };
 

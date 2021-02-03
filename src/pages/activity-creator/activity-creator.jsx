@@ -1,17 +1,34 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useStore } from 'react-redux';
+import { activitiesReducer } from '../../store/reducers';
 
 import { v4 as uuidV4 } from 'uuid';
 import _map from 'lodash/map';
 import _find from 'lodash/find';
 import _filter from 'lodash/filter';
+import _keys from 'lodash/keys';
+import _values from 'lodash/values';
 
-import { Paper, TextField, Icon, IconButton, Dialog, DialogTitle, DialogContent, DialogActions, MenuItem } from '@material-ui/core';
-import CreateIcon from '@material-ui/icons/Create';
+import Moment from 'moment';
+import 'moment/locale/pt-br';
+import MomentUtils from '@date-io/moment';
+
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { Paper, Icon, TextField, MenuItem } from '@material-ui/core';
 
 import { Button } from '../../atoms';
 import QuestionCreator from './question-creator';
 
+import { ACTIVITIES_TYPES } from '../../helpers/system';
+
 import './activity-creator.scss';
+
+const GRADES_MOCK = [
+    { name: 'T100', value : 'T100'},
+    { name: 'T200', value : 'T200'},
+    { name: 'T300', value : 'T300'},
+];
 
 const BLANK_QUESTION = {
     id: uuidV4(),
@@ -20,41 +37,7 @@ const BLANK_QUESTION = {
     answers: [],
 };
 
-const GRADES_MOCK = [
-    { name: 'T100', value : 'T100'},
-    { name: 'T200', value : 'T200'},
-    { name: 'T300', value : 'T300'},
-];
-
-const ACTIVITY_MOCK = { title: 'Lore ipsum', deadline: '01/01/2021', grade: 'T300'};
-
-const SmallDialog = ({ opened, data, handleClose }) => {
-
-    const [dialogState, updateDialogState] = React.useState({...data});
-
-    if (!opened) return null;
-
-    console.log("Small dialog data: ", data);
-    const { title, deadline, grade } = dialogState;
-    const changeTitle = ($event) => updateDialogState({...dialogState, title: $event.target.value});
-    const changeDeadline = ($event) => updateDialogState({...dialogState, deadline: $event.target.value});
-    const changeGrade = ($event) => updateDialogState({...dialogState, grade: $event.target.value});
-    const onCloseDialog = () => handleClose(dialogState);
-
-    return (
-        <Dialog open>
-            <DialogTitle id="form-dialog-title">Configurações principais da Atividade: </DialogTitle>
-            <DialogContent className='activity-creator-small-dialog-content'>
-                <TextField label='Título:' variant='outlined' defaultValue={title} onChage={changeTitle} />
-                <TextField label='Data de entrega limite:' variant='outlined' defaultValue={deadline} type='date' onChange={changeDeadline} />
-                <TextField label='Turma detinada:' variant='outlined' defaultValue={grade} select onChange={changeGrade} >
-                    {_map(GRADES_MOCK, ({name, value}) => <MenuItem value={value}>{name}</MenuItem>)}
-                </TextField>
-            </DialogContent>
-            <DialogActions><Button onClick={onCloseDialog} color="primary">Ok</Button></DialogActions>
-        </Dialog>
-    );
-};
+const ACTIVITY_MOCK = { title: 'Lore ipsum', postdate: '01/01/2021', deadline: '01/01/2021', grade: 'T300', type: 'list', questions: []};
 
 const QuestionList = ({questions, ...props}) => {
     if (!questions) return null;
@@ -62,20 +45,15 @@ const QuestionList = ({questions, ...props}) => {
 };
 
 const ActivityCreator = (props) => {
-
-    const [activity, updateActivity] = React.useState({ ...ACTIVITY_MOCK, id: uuidV4() });
-    const [smallDialog, updateSmallDialog] = React.useState({ opened: false, data: null});
-
-    const { title, deadline, grade, questions} = activity;
-
-    const openSmallDialog = () => updateSmallDialog(oldState => ({ opened: !oldState.opened, data: { title, deadline, grade} }));
-    const closeSmallDialog = () => updateSmallDialog(oldState => ({ opened: !oldState.opened, data: null }));
-
-    const updateFromSmalldialog = (newData) => {
-        const { title, deadline, grade } = newData;
-        updateActivity((oldState) => ({ ...oldState, title, deadline, grade }));
-        closeSmallDialog();
-    };
+    Moment.locale('pt-br');
+    const HistoryState = useHistory();
+    const STORE = useStore();
+    const { activities } = STORE.getState();
+    const [activity, updateActivity] = React.useState(activities.selected || { ...ACTIVITY_MOCK, id: uuidV4() });
+    
+    console.log("")
+    
+    const { questions, title, postdate, deadline, grade, type } = activity;
 
     const newQuestion = () => updateActivity(({questions, ...oldState}) => {
         const newQuestion = Object.assign({}, {...BLANK_QUESTION, id: uuidV4()});
@@ -107,6 +85,29 @@ const ActivityCreator = (props) => {
         })
     };
 
+    const updateTitle = ($event) => updateActivity((currentState) => ({...currentState, title: $event.target.value}));
+    const updatePostdate = ($event) => updateActivity((currentState) => ({...currentState, postdate: $event.format()}));
+    const updateDeadline = ($event) => updateActivity((currentState) => ({...currentState, deadline: $event.format()}));
+    const updateGrade = ($event) => updateActivity((currentState) => ({...currentState, grade: $event.target.value}));
+    const updateType = ($event) => updateActivity((currentState) => ({...currentState, type: $event.target.value}));
+
+    const loadActivitySelector = () => {
+        const keys = _keys(ACTIVITIES_TYPES);
+        const values = _values(ACTIVITIES_TYPES);
+        return _map(values, ({displayText}, index) => <MenuItem key={uuidV4()} value={keys[index]}>{displayText}</MenuItem>);
+    };
+
+
+    const createNewActivity = () => {console.log("Criar uma nova atividade: ")};
+    const updateSelectedActivity = () => {console.log("Atualizar uma atividade: ")};
+
+    const saveAction = !!activities.selected ? updateActivity : updateSelectedActivity;
+
+    const backToList = () => {
+        const listenner = STORE.subscribe(() => { listenner(); HistoryState.goBack(); });
+        STORE.dispatch(activitiesReducer.actions.clearSelected());
+    };
+
     return (
         <div className='activity-creator page'>
             
@@ -114,30 +115,37 @@ const ActivityCreator = (props) => {
                 <h2 className='page-title'>
                     Nova atividade
                 </h2>
-
-                <Button variant='link' to='/activities' title='Voltar para a lista de atividades'> <Icon>arrow_back</Icon> Lista </Button>
+                <Button aria-label='Voltar à lista' onClick={backToList} title='Voltar para a lista de atividades'> <Icon>arrow_back</Icon> Voltar </Button>
             </div>
 
             <Paper className='page-content mirror-form-wrapper' elevation={0}>
 
-                <SmallDialog {...smallDialog} handleClose={updateFromSmalldialog} />
-
                 <div className='mirror-form-header'>
                     <div>
                         <small>Título: </small>
-                        <h4>{title}<IconButton aria-label='Editar título' onClick={openSmallDialog}><CreateIcon /></IconButton></h4>
+                        <TextField variant='outlined' defaultValue={title} onBlur={updateTitle} />
                     </div>
                     <div>
                         <small>Data de publicação: </small>
-                        <h4>{deadline}<IconButton aria-label='Editar data' onClick={openSmallDialog}><CreateIcon /></IconButton></h4>
+                        <MuiPickersUtilsProvider libInstance={Moment} utils={MomentUtils} locale='pt-br' >
+                            <DatePicker disableToolbar variant="dialog" inputVariant="outlined" value={postdate} format='DD [de] MMMM [de] yyyy' onChange={updatePostdate} />
+                        </MuiPickersUtilsProvider>
                     </div>
                     <div>
                         <small>Data limite: </small>
-                        <h4>{deadline}<IconButton aria-label='Editar data' onClick={openSmallDialog}><CreateIcon /></IconButton></h4>
+                        <MuiPickersUtilsProvider libInstance={Moment} utils={MomentUtils} locale='pt-br' >
+                            <DatePicker disableToolbar variant="dialog" inputVariant="outlined" value={deadline} format='DD [de] MMMM [de] yyyy' onChange={updateDeadline} />
+                        </MuiPickersUtilsProvider>
                     </div>
                     <div>
                         <small>Turma: </small>
-                        <h4>{grade}<IconButton aria-label='Editar turma' onClick={openSmallDialog}><CreateIcon /></IconButton></h4>
+                        <TextField variant='outlined' value={grade} select onChange={updateGrade} >
+                            {_map(GRADES_MOCK, ({name, value}) => <MenuItem value={value}>{name}</MenuItem>)}
+                        </TextField>
+                    </div>
+                    <div>
+                        <small>Tipo: </small>
+                        <TextField variant='outlined' value={type} select onChange={updateType}>{loadActivitySelector()}</TextField>
                     </div>
                 </div>
 
@@ -150,8 +158,7 @@ const ActivityCreator = (props) => {
                     <Button onClick={newQuestion}>Nova Questão</Button>
 
                     <div className='btns--align-right'>
-                        <Button color='cancel'>Cancelar</Button>
-                        <Button>Salvar</Button>
+                        <Button onClick={saveAction} aria-label='Salvar atividade'>Salvar</Button>
                     </div>
                 </div>
 

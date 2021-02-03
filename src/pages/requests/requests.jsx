@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
+import { useStore } from 'react-redux';
+
 import _map from 'lodash/map';
+import _concat from 'lodash/concat';
 
 import {
     Paper, 
@@ -26,7 +29,7 @@ import { Avatar } from '../../molecules';
 
 import './requests.scss';
 import NewRequestDialog from './new-request-dialog';
-import REQUESTS from './requests-mock.js';
+import { REQUESTS } from './requests-mock.js';
 
 import { REQUEST_STATUS, REQUEST_TYPES } from '../../helpers/system';
 
@@ -43,7 +46,8 @@ const RequestActions = ({request}) => {
     </>);
 };
 
-const TableRows = () => _map(REQUESTS, (row) => {
+const TableRows = ({data}) => _map(data, (row) => {
+
     const { id, requester, assingment, grade, date, status, type } = row;
     const displayType = REQUEST_TYPES[type];
     const { statusText, statusStyle } = REQUEST_STATUS[status];
@@ -66,7 +70,12 @@ const TableRows = () => _map(REQUESTS, (row) => {
 
 const Requests = (props) => {
 
+    const STORE = useStore().getState().requests;
+    console.log("Requests store: ", STORE);
+
     const [openDialog, toggleDialogDisplay] = useState(false);
+
+    const [requests, updateRequests] = useState(STORE);
 
     const searchRequest = ($event) => {
         $event.preventDefault();
@@ -75,11 +84,13 @@ const Requests = (props) => {
 
     const handleDialogStatus = () => toggleDialogDisplay(!openDialog);
 
+    const handleAdd = (newRequest) => updateRequests((currentRequests) => _concat(currentRequests, [newRequest]));
+
     return (
 
         <div className="request-page page">
 
-            <NewRequestDialog open={openDialog} handleClose={handleDialogStatus} />
+            <NewRequestDialog open={openDialog} handleClose={handleDialogStatus} handleAdd={handleAdd} />
             
             <div className="page-header">
                 <h2 className="title">Solicitações</h2>
@@ -126,7 +137,7 @@ const Requests = (props) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableRows />
+                            <TableRows data={requests} />
                         </TableBody>
                     </Table>
                 </TableContainer>

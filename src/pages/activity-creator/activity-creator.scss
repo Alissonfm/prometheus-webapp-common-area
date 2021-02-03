@@ -31,10 +31,11 @@
                 small {
                     font-weight: 800;
                     color: $primaryColorRGB;
-                }
 
-                h4 {
-                    @include fontSize(24);
+                    & + * {
+                        display: block;
+                        width: 100%;
+                    }
                 }
             }
 

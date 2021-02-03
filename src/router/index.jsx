@@ -44,6 +44,6 @@ const Component = (props) => (<Switch>
   {buildRouterTree(ROUTES, props)}
 </Switch>
 );
-const RouterTree = (props) => React.useMemo(() => <Component {...props} />, [props]);
+const RouterTree = () => React.useMemo(Component, []);
 
 export default RouterTree;

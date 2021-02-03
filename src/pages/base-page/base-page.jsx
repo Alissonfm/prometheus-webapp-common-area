@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import { Loader } from '../../atoms';
 import { Menu, Sidebar } from '../../organisms';
 import RouterTree from '../../router';
@@ -28,6 +28,6 @@ const BasePage = (props) => {
       </div>
     </div>
   );
-};
+}
 
 export default BasePage;

@@ -31,8 +31,8 @@ const widgets_sizes = {
 };
 
 const mock_widgets_teacher = [
-    { type: 'welcome', transparent: true, user: {type: 'Professor'}, size: 1 },
-    { type: 'messages', size: 0, count: '07' },
+    { type: 'welcome', size: 2, transparent: true, user: {type: 'Professor'} },
+    // { type: 'messages', size: 0, count: '07' },
     { type: 'graphs', size: 2, title: 'Estatísticas dos alunos', icon: 'bar_chart', graphs: [graphData, graphData] }
 ];
 
